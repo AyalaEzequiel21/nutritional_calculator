@@ -1,5 +1,5 @@
 import React from "react"
-import {Box} from '@chakra-ui/react'
+import {Box, StackDivider, Stack} from '@chakra-ui/react'
 import stylesValues from "../../stylesValues"
 
 
@@ -20,7 +20,9 @@ export const BoXContainer: React.FC<BoxContainerProps> = ({children}) => {
             padding={10} 
             borderRadius="md" 
         >
-            {children}
+            <Stack divider={<StackDivider />} spacing='3' align="center">
+                {children}
+            </Stack>
         </Box>
     )
 }

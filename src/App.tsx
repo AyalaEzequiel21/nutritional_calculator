@@ -5,6 +5,7 @@ import { FormDesarrolladaPage } from './pages/FormulaDesarrolladaCalc/FormDesarr
 import { FormPesoIdealPage } from './pages/FormulaPesoIdealCalc/FormulaPesoIdeal';
 import { PesoIdealCorregidoPage } from './pages/PesoIdealCorregidoCalc/PesoIdealCorregido';
 import { ValorCaloricoTotalPage } from './pages/ValorCaloricoTotalCalc/ValorCaloricoTotal';
+import { IMCCalcPage } from './pages/IMCCalc/IMCCalc';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Container >
           <Routes>
             <Route path='/' element={<Home/>} />
+            <Route path='/IMC' element={<IMCCalcPage/>} />
             <Route path='/formDesarrollada' element={<FormDesarrolladaPage/>} />
             <Route path='/formPesoIdeal' element={<FormPesoIdealPage/>} />
             <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />

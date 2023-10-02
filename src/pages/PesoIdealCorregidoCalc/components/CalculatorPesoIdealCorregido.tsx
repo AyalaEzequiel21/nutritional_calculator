@@ -3,8 +3,6 @@ import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { 
     Box, 
-    StackDivider,
-    Stack,
     useDisclosure,
     UseDisclosureReturn
 } from "@chakra-ui/react";
@@ -61,7 +59,6 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
         <Box>
            <form onSubmit={handleSubmit(onSubmit)}>
                 <BoXContainer>
-                    <Stack divider={<StackDivider />} spacing='3' align="center">
                         <CustomInput 
                             label="Peso Actual"
                             name="peso_actual"
@@ -82,7 +79,6 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
                             step={0.1}
                             key={"ideal"}
                         />
-                    </Stack>
                 </BoXContainer>
                 <ButtonsPack onToggle={onToggle} result={result} isCalculating={isCalculating} setIsCalculating={setIsCalculating} reset={resetFunc}/>
            </form>
