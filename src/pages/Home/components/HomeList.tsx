@@ -36,7 +36,7 @@ export const HomeList: React.FC<HomeListProps> = () => {
               w={"100%"}
             >
               <Heading size='s' textTransform='uppercase' _hover={{textColor: stylesValues.colors.decorative}}>
-                Formula Hamwi (peso ideal)
+                Formula Hamwi
               </Heading>
             </Link>
             <Link

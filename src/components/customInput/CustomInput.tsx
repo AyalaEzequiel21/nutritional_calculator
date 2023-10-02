@@ -39,11 +39,6 @@ import stylesValues from "../../stylesValues";
              bg={stylesValues.colors.text}
              color={stylesValues.colors.primary}
              />
-        {/* {type === "number" ? (
-                <Input type={type} step={step} {...register(name, registerOptions)} placeholder={placeHolder}/>
-            ) : (
-                <Input type={type} {...register(name, registerOptions)} placeholder={placeHolder}/>
-            )} */}
         <FormErrorMessage>{error}</FormErrorMessage>
       </FormControl>
     );

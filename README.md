@@ -34,8 +34,53 @@ Contributions to this project are welcome! If you'd like to contribute, please f
 This project was developed with the valuable input and domain knowledge of Lara Ferreira Lopes, a future professional in the field of nutrition. Her expertise in nutritional formulas and her practical needs as a nutritionist were instrumental in shaping this app.
 
 ## Contact
-If you have any questions, encounter issues, or wish to collaborate, you can reach out to us at [Your Contact Information].
+If you have any questions, encounter issues, or wish to collaborate, you can reach out to us at Linkedin: https://www.linkedin.com/in/ezequiel-ayala/ - email: ezequielayala.c@gmail.com 
 
 ## Project Status
 This project is currently in active development.
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+# Calculator Nutricional
+
+## Descripción
+Esta aplicación está diseñada para ayudar a los profesionales de la nutrición en la realización de diversos cálculos necesarios para evaluar a los pacientes. Puede calcular el Índice de Masa Corporal (IMC), el peso ideal según la fórmula de Hamwi, el peso ideal corregido y también proporciona una herramienta para calcular el valor nutricional de un alimento.
+
+## Instalación
+Para usar esta aplicación, sigue estos pasos:
+1. Descarga la carpeta del proyecto.
+2. Ejecuta `npm install` o `yarn` en tu terminal para instalar las dependencias requeridas.
+
+## Uso
+Puedes utilizar la aplicación Calculator Nutricional para:
+- Calcular el Índice de Masa Corporal (IMC) de los pacientes.
+- Determinar el peso ideal según la fórmula de Hamwi.
+- Calcular el peso ideal corregido.
+- Obtener el valor nutricional de un alimento utilizando una fórmula desarrollada.
+
+## Ejemplos
+Aquí tienes algunos casos de uso comunes para esta aplicación:
+- Calcular el IMC de un paciente en función de su altura y peso.
+- Determinar el peso ideal de un paciente utilizando la fórmula de Hamwi.
+- Calcular el peso ideal corregido de un paciente en función de su peso actual y el peso ideal.
+
+## Contribución
+¡Las contribuciones a este proyecto son bienvenidas! Si deseas contribuir, sigue estas pautas:
+- Haz un fork del repositorio.
+- Crea una nueva rama para tu funcionalidad o corrección de errores.
+- Realiza tus cambios y realiza commits con mensajes claros.
+- Envía una solicitud de extracción (pull request) describiendo los cambios que has realizado.
+
+## Créditos
+Este proyecto fue desarrollado con la valiosa contribución y conocimiento en el área de Lara Ferreira Lopes, una futura profesional en el campo de la nutrición. Su experiencia en fórmulas nutricionales y sus necesidades prácticas como nutricionista fueron fundamentales en la creación de esta aplicación.
+
+## Contacto
+Si tienes preguntas, encuentras problemas o deseas colaborar, puedes ponerte en contacto con nosotros en Linkedin: https://www.linkedin.com/in/ezequiel-ayala/ - email: ezequielayala.c@gmail.com 
+
+## Estado del Proyecto
+Este proyecto se encuentra actualmente en desarrollo activo.
 
