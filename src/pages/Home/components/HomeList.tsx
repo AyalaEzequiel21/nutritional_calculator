@@ -1,6 +1,7 @@
-import { Box, Card, Heading, Link, Stack, StackDivider } from "@chakra-ui/react";
+import { Heading, Link, Stack, StackDivider } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import stylesValues from "../../../stylesValues";
+import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
 
 
 export interface HomeListProps {
@@ -9,9 +10,8 @@ export interface HomeListProps {
 
 export const HomeList: React.FC<HomeListProps> = () => {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Card p={20} gap={10} bg={stylesValues.colors.primary} borderRadius="lg" boxShadow="lg">
-          <Stack divider={<StackDivider />} spacing='4' align="center">
+      <BoXContainer>
+        <Stack divider={<StackDivider />} spacing='4' align="center">
           <Link
               as={RouterLink}
               to="/formPesoIdeal"
@@ -65,7 +65,6 @@ export const HomeList: React.FC<HomeListProps> = () => {
               </Heading>
             </Link>
           </Stack>
-        </Card>
-      </Box>
+      </BoXContainer>
     );
   }
