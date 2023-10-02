@@ -44,6 +44,14 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
 
    const resetFunc = () => {
     reset()
+    setIsCalculating(false)
+   }
+
+   const handleCalculate = () => {
+    if(!isCalculating) {
+        setIsCalculating(true)
+        onToggle()
+    }
    }
 
    const onSubmit: SubmitHandler<PatienValues> = (data) => {
@@ -56,11 +64,11 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
    const tag = "Peso ideal corregido"
 
     return (
-        <Box>
+        <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
            <form onSubmit={handleSubmit(onSubmit)}>
                 <BoXContainer>
                         <CustomInput 
-                            label="Peso Actual"
+                            label="Peso Actual (Kg)"
                             name="peso_actual"
                             register={register}
                             error={errors.peso_actual?.message}
@@ -70,7 +78,7 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
                             key={"actual"}
                         />
                         <CustomInput 
-                            label="Peso Ideal"
+                            label="Peso Ideal (Kg)"
                             name="peso_ideal"
                             register={register}
                             error={errors.peso_ideal?.message}
@@ -80,7 +88,7 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
                             key={"ideal"}
                         />
                 </BoXContainer>
-                <ButtonsPack onToggle={onToggle} result={result} isCalculating={isCalculating} setIsCalculating={setIsCalculating} reset={resetFunc}/>
+                <ButtonsPack onCalculate={handleCalculate} calculating={isCalculating} resetFunc={resetFunc}/>
            </form>
            {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>

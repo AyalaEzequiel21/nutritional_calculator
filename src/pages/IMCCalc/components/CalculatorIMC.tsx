@@ -38,7 +38,15 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
 
     const resetFunc = () => {
         reset()
+        setIsCalculating(false)
     }
+
+    const handleCalculate = () => {
+        if (!isCalculating) {
+          setIsCalculating(true);
+          onToggle()
+        }
+      };
 
     const onSubmit: SubmitHandler<PatienValues> = (data) => {
         const {peso_actual, altura} = data
@@ -51,11 +59,11 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
     const tag = "Indice de Masa Corporal"
 
     return (
-        <Box>
+        <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <BoXContainer>
                     <CustomInput 
-                        label="Peso Actual"
+                        label="Peso Actual (Kg)"
                         name="peso_actual"
                         register={register}
                         error={errors.peso_actual?.message}
@@ -65,17 +73,17 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
                         key={"actual"}
                     />
                     <CustomInput 
-                        label="Altura"
+                        label="Altura (mts)"
                         name="altura"
                         register={register}
                         error={errors.altura?.message}
                         placeHolder="0.00"
                         type="number"
-                        step={0.1}
+                        step={0.01}
                         key={"altura"}
                     />
                 </BoXContainer>
-                <ButtonsPack onToggle={onToggle} result={result} isCalculating={isCalculating} setIsCalculating={setIsCalculating} reset={resetFunc} />
+                <ButtonsPack onCalculate={handleCalculate} calculating={isCalculating} resetFunc={resetFunc}/>
             </form>
             {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>

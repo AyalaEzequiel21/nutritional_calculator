@@ -1,16 +1,17 @@
 import React from "react";
 import { Layout } from "../../components/Layout/Layout";
 import { BoXContainer } from "../../components/boxContainer/BoxContainer";
+import {CalculatorHamwi} from "./components/CalculatorHamwi"
 
-export interface FormPesoIdealProp {
+export interface FormHamwiProps {
 
 }
 
-export const FormPesoIdealPage: React.FC<FormPesoIdealProp> = () => {
+export const FormHamwiPage: React.FC<FormHamwiProps> = () => {
     return (
-        <Layout title="Formula Peso Ideal">
+        <Layout title="Formula Hamwi (Peso Ideal)">
             <BoXContainer>
-                <h1>casi</h1>
+                {/* <CalculatorHamwi /> */}
             </BoXContainer>
         </Layout>
     )

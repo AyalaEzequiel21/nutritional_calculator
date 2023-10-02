@@ -19,6 +19,7 @@ export const HomeList: React.FC<HomeListProps> = () => {
               p={4}
               bg={stylesValues.colors.secondary}
               borderRadius="md"
+              w={"100%"}
           >
               <Heading size='s' textTransform='uppercase' _hover={{textColor: stylesValues.colors.decorative}}>
                 Indice de masa corporal
@@ -26,15 +27,16 @@ export const HomeList: React.FC<HomeListProps> = () => {
           </Link>
           <Link
               as={RouterLink}
-              to="/formPesoIdeal"
+              to="/hamwi"
               _hover={{ cursor: "pointer" }}
               color={stylesValues.colors.text}
               p={4}
               bg={stylesValues.colors.secondary}
               borderRadius="md"
+              w={"100%"}
             >
               <Heading size='s' textTransform='uppercase' _hover={{textColor: stylesValues.colors.decorative}}>
-                Formula de peso ideal
+                Formula Hamwi (peso ideal)
               </Heading>
             </Link>
             <Link
@@ -45,6 +47,7 @@ export const HomeList: React.FC<HomeListProps> = () => {
               p={4}
               bg={stylesValues.colors.secondary}
               borderRadius="md"
+              w={"100%"}
             >
               <Heading size='s' textTransform='uppercase' _hover={{textColor: stylesValues.colors.decorative}}>
                 Peso ideal corregido
@@ -58,6 +61,7 @@ export const HomeList: React.FC<HomeListProps> = () => {
               p={4}
               bg={stylesValues.colors.secondary}
               borderRadius="md"
+              w={"100%"}
             >
               <Heading size='s' textTransform='uppercase' _hover={{textColor: stylesValues.colors.decorative}}>
                 Formula desarrollada
@@ -71,6 +75,7 @@ export const HomeList: React.FC<HomeListProps> = () => {
               p={4}
               bg={stylesValues.colors.secondary}
               borderRadius="md"
+              w={"100%"}
             >
               <Heading size='s' textTransform='uppercase' _hover={{textColor: stylesValues.colors.decorative}}>
                 Valor calórico total

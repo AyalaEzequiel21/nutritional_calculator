@@ -2,10 +2,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Container, ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { Home } from './pages/Home/Home'
 import { FormDesarrolladaPage } from './pages/FormulaDesarrolladaCalc/FormDesarrollada';
-import { FormPesoIdealPage } from './pages/FormulaPesoIdealCalc/FormulaPesoIdeal';
+import { FormHamwiPage } from './pages/FormulaHamwiCalc/FormulaHamwi';
 import { PesoIdealCorregidoPage } from './pages/PesoIdealCorregidoCalc/PesoIdealCorregido';
 import { ValorCaloricoTotalPage } from './pages/ValorCaloricoTotalCalc/ValorCaloricoTotal';
 import { IMCCalcPage } from './pages/IMCCalc/IMCCalc';
+import { Header } from './components/header/Header';
 
 function App() {
 
@@ -19,12 +20,13 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter basename='/nutritional_calculator'>
+        <Header />
         <Container >
           <Routes>
             <Route path='/' element={<Home/>} />
             <Route path='/IMC' element={<IMCCalcPage/>} />
             <Route path='/formDesarrollada' element={<FormDesarrolladaPage/>} />
-            <Route path='/formPesoIdeal' element={<FormPesoIdealPage/>} />
+            <Route path='/hamwi' element={<FormHamwiPage/>} />
             <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />
             <Route path='/valorCaloricoTotal' element={<ValorCaloricoTotalPage/>} />
             <Route path='*' element={<Home/>} />

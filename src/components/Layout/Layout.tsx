@@ -10,7 +10,7 @@ export interface LayoutProp {
 
 export const Layout: React.FC<LayoutProp> = ({title, children}) => {
     return (
-        <Container p={10} display={'flex'} flexDir={'column'} justifyContent="center" alignItems="center">
+        <Container p={5} display={'flex'} flexDir={'column'} justifyContent="center" alignItems="center">
             <Heading textColor={stylesValues.colors.primary} textAlign={'center'}>{title}</Heading>
             <Logo/>
             {children}
