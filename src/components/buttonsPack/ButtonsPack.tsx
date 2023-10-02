@@ -20,7 +20,7 @@ export const ButtonsPack: React.FC<ButtonsPackProps> = ({onCalculate, calculatin
     }
 
     return (
-        <ButtonGroup justifyContent={"center"} w={"100%"} mt={3}>
+        <ButtonGroup justifyContent={"center"} w={"100%"} mt={3} mb={3}>
             <Button colorScheme="red" onClick={resetFunc}>
                 RESET
             </Button>

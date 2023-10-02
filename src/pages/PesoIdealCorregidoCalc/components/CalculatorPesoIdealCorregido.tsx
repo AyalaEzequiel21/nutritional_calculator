@@ -45,6 +45,7 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
    const resetFunc = () => {
     reset()
     setIsCalculating(false)
+    setResult(undefined)
    }
 
    const handleCalculate = () => {

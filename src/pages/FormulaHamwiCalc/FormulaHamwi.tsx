@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../../components/Layout/Layout";
 import { BoXContainer } from "../../components/boxContainer/BoxContainer";
-import {CalculatorHamwi} from "./components/CalculatorHamwi"
+// import {CalculatorHamwi} from "./components/CalculatorHamwi"
 
 export interface FormHamwiProps {
 
