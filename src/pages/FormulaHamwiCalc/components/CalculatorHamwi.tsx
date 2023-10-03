@@ -36,7 +36,7 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
        const { isOpen, onToggle }: UseDisclosureReturn = useDisclosure()
 
        const hamwiForm = (pesoActual: number, altura: number, genero: string) => {
-        const pesoDeconstado = genero === "femenino" ? 45.5 : 47.7
+        const pesoDeconstado = genero === "femenino" ? (pesoActual - 45.5) : (pesoActual - 47.7)
         const altReducida = altura - 150
 
         const cmDefault = altReducida / 2.5
