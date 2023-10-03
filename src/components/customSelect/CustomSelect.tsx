@@ -13,6 +13,7 @@ interface CustomSelectProps<T extends FieldValues, E extends Record<string, stri
     register: UseFormRegister<T>
     name: string
     error?: string | undefined
+    placeholder: string
     enumOptions: E
     registerOptions?: RegisterOptions
 }   
@@ -22,6 +23,7 @@ export const CustomSelect: React.FC<CustomSelectProps<any, Record<string, string
     register, 
     name, 
     error,
+    placeholder,
     enumOptions,
     registerOptions
 }) => {
@@ -31,7 +33,7 @@ export const CustomSelect: React.FC<CustomSelectProps<any, Record<string, string
     return (
         <FormControl isInvalid={!!error} maxW={"300px"}>
             <FormLabel>{label}</FormLabel>
-                <Select {...register(name, registerOptions)} bg={stylesValues.colors.text} color={stylesValues.colors.primary}>
+                <Select placeholder={placeholder} {...register(name, registerOptions)} bg={stylesValues.colors.text} color={stylesValues.colors.primary}>
                     {options.map(option => (
                         <option key={option.value} value={option.value}>
                             {option.label}

@@ -4,7 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { 
     Box, 
     useDisclosure,
-    UseDisclosureReturn
+    UseDisclosureReturn, 
+    Spinner 
 } from "@chakra-ui/react";
 import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
 import { genero } from "../../../enums/genero";
@@ -18,6 +19,7 @@ export interface CalcHamwiProps {}
 export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
     const [result, setResult] = useState<number | undefined>(undefined)
     const [isCalculating, setIsCalculating] = useState<boolean>(false)
+
 
     const schema = z.object({
         peso_actual: z.number().min(0).max(199.9),
@@ -33,20 +35,39 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
        
        const { isOpen, onToggle }: UseDisclosureReturn = useDisclosure()
 
-       const onSubmit: SubmitHandler<PatienValues> = () => {setResult(2)}
+       const hamwiForm = (pesoActual: number, altura: number, genero: string) => {
+        const pesoDeconstado = genero === "femenino" ? 45.5 : 47.7
+        const altReducida = altura - 150
 
-       const resetFunc = () => {
-        reset()
-        setIsCalculating(false)
+        const cmDefault = altReducida / 2.5
+        const weight = genero === "femenino" ? (cmDefault * 2.27) : (cmDefault * 2.72)
+
+        return (weight + pesoDeconstado).toFixed(2)
+        
        }
-    
-       const handleCalculate = () => {
-        if(!isCalculating) {
-            setIsCalculating(true)
+
+       const onSubmit: SubmitHandler<PatienValues> = (data) => {
+        console.log("click", data);
+        
+           const {peso_actual, altura, genero} = data
+            if (peso_actual !== undefined || altura !== undefined || genero !== undefined){
+            if(!isOpen){
+                setIsCalculating(true)
+                const totalWeight = hamwiForm(peso_actual, altura, genero)
+                setResult(parseFloat(totalWeight))
+                onToggle()
+                setIsCalculating(false)
+            }
+        }
+    }
+
+    const resetFunction = () => {
+        if(isOpen){
+            reset()
+            setResult(undefined)
             onToggle()
         }
-       }
-    
+    }
 
     return (
         <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
@@ -77,12 +98,14 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
                         name="genero"
                         register={register}
                         error={errors.genero?.message}
+                        placeholder="Genero"
                         enumOptions={genero}
                     />
                 </BoXContainer>
-                <ButtonsPack onCalculate={handleCalculate} calculating={isCalculating} resetFunc={resetFunc} />
+                <ButtonsPack   resetFunction={resetFunction}/>
             </form>
-            {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
+            {isCalculating && <Spinner/>}
+            {result !== undefined && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>
     )
 }
