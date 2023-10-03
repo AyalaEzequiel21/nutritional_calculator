@@ -8,11 +8,11 @@ import {
     Spinner 
 } from "@chakra-ui/react";
 import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
-import { genero } from "../../../enums/genero";
 import { CustomInput } from "../../../components/customInput/CustomInput";
 import { CustomSelect } from "../../../components/customSelect/CustomSelect";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { CardResult } from "../../../components/cardResult/CardResult";
+import { EGenero } from "../../../enums/EGenero";
 
 export interface CalcHamwiProps {}
 
@@ -22,9 +22,8 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
 
 
     const schema = z.object({
-        peso_actual: z.number().min(0).max(199.9),
         altura: z.number().min(0).max(250), 
-        genero: z.nativeEnum(genero)
+        genero: z.nativeEnum(EGenero)
        })
     
        type PatienValues = z.infer<typeof schema>
@@ -35,29 +34,25 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
        
        const { isOpen, onToggle }: UseDisclosureReturn = useDisclosure()
 
-       const hamwiForm = (pesoActual: number, altura: number, genero: string) => {
-        const pesoDeconstado = genero === "femenino" ? (pesoActual - 45.5) : (pesoActual - 47.7)
+       const hamwiForm = (altura: number, genero: EGenero) => {
+        const pesoDescontado = (genero === EGenero.FEMENINO) ? 45.5 : 47.7
         const altReducida = altura - 150
-
-        const cmDefault = altReducida / 2.5
-        const weight = genero === "femenino" ? (cmDefault * 2.27) : (cmDefault * 2.72)
-
-        return (weight + pesoDeconstado).toFixed(2)
-        
+        const pesoADuplicar = (genero === EGenero.FEMENINO) ? 2.27 : 2.72
+        const preResult = (altReducida * pesoADuplicar) / 2.5
+        const pesoIdeal = preResult + pesoDescontado 
+        return pesoIdeal.toFixed(2);
        }
 
        const onSubmit: SubmitHandler<PatienValues> = (data) => {
-        console.log("click", data);
-        
-           const {peso_actual, altura, genero} = data
-            if (peso_actual !== undefined || altura !== undefined || genero !== undefined){
-            if(!isOpen){
-                setIsCalculating(true)
-                const totalWeight = hamwiForm(peso_actual, altura, genero)
-                setResult(parseFloat(totalWeight))
-                onToggle()
-                setIsCalculating(false)
-            }
+           const {altura, genero} = data
+            if (altura.toString() !== "" && genero.toString() !== ""){
+                if(!isOpen){
+                    setIsCalculating(true)
+                    const totalWeight = hamwiForm(altura, genero)
+                    setResult(parseFloat(totalWeight))
+                    onToggle()
+                    setIsCalculating(false)
+                }
         }
     }
 
@@ -74,16 +69,6 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <BoXContainer>
                     <CustomInput 
-                        label="Peso Actual (Kg)"
-                        name="peso_actual"
-                        register={register}
-                        error={errors.peso_actual?.message}
-                        placeHolder="0.0"
-                        type="number"
-                        step={0.1}
-                        key={"actual"}
-                    />
-                    <CustomInput 
                         label="Altura (cm)"
                         name="altura"
                         register={register}
@@ -99,7 +84,7 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
                         register={register}
                         error={errors.genero?.message}
                         placeholder="Genero"
-                        enumOptions={genero}
+                        enumOptions={EGenero}
                     />
                 </BoXContainer>
                 <ButtonsPack   resetFunction={resetFunction}/>

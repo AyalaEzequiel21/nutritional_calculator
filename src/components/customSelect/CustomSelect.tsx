@@ -28,8 +28,9 @@ export const CustomSelect: React.FC<CustomSelectProps<any, Record<string, string
     registerOptions
 }) => {
 
-    const options = Object.keys(enumOptions).map(key => ({label: enumOptions[key], value: key}))
-
+    const options = Object.keys(enumOptions).map(key => ({label: key, value: enumOptions[key]}))    //
+    // console.log(Object.values(enumOptions));
+    
     return (
         <FormControl isInvalid={!!error} maxW={"300px"}>
             <FormLabel>{label}</FormLabel>
