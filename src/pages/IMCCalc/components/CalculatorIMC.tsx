@@ -1,4 +1,4 @@
-import { UseDisclosureReturn, useDisclosure, Box } from "@chakra-ui/react";
+import { UseDisclosureReturn, useDisclosure, Box, Spinner } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -36,17 +36,14 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
         return undefined
     }
 
-    const resetFunc = () => {
-        reset()
-        setIsCalculating(false)
+    const resetFunction = () => {
+        if(isOpen){
+            reset()
+            setResult(undefined)
+            onToggle()
+        }
     }
 
-    const handleCalculate = () => {
-        if (!isCalculating) {
-          setIsCalculating(true);
-          onToggle()
-        }
-      };
 
     const onSubmit: SubmitHandler<PatienValues> = (data) => {
         const {peso_actual, altura} = data
@@ -83,8 +80,9 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
                         key={"altura"}
                     />
                 </BoXContainer>
-                <ButtonsPack onCalculate={handleCalculate} calculating={isCalculating} resetFunc={resetFunc}/>
+                <ButtonsPack resetFunction={resetFunction}/>
             </form>
+            {isCalculating && <Spinner/>}
             {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>
     )

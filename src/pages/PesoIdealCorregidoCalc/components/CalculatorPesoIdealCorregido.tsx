@@ -4,7 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { 
     Box, 
     useDisclosure,
-    UseDisclosureReturn
+    UseDisclosureReturn, 
+    Spinner
 } from "@chakra-ui/react";
 import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
 import { CustomInput } from "../../../components/customInput/CustomInput";
@@ -30,6 +31,8 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
    
    const { isOpen, onToggle }: UseDisclosureReturn = useDisclosure()
 
+   const tag = "Peso ideal corregido"
+
    const getPIC = (pesoActual: number, pesoIdeal: number) => {
     if(pesoActual !== undefined && pesoIdeal !== undefined){
         const peso_actual_float = parseFloat(pesoActual.toString());
@@ -42,19 +45,6 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
     return undefined
    }
 
-   const resetFunc = () => {
-    reset()
-    setIsCalculating(false)
-    setResult(undefined)
-   }
-
-   const handleCalculate = () => {
-    if(!isCalculating) {
-        setIsCalculating(true)
-        onToggle()
-    }
-   }
-
    const onSubmit: SubmitHandler<PatienValues> = (data) => {
     const { peso_actual, peso_ideal } = data;
     const pic = getPIC(peso_actual, peso_ideal)
@@ -62,7 +52,13 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
     setIsCalculating(false)
    }
 
-   const tag = "Peso ideal corregido"
+   const resetFunction = () => {
+        if(isOpen){
+            reset()
+            setResult(undefined)
+            onToggle()
+        }
+    }
 
     return (
         <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
@@ -89,8 +85,9 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
                             key={"ideal"}
                         />
                 </BoXContainer>
-                <ButtonsPack onCalculate={handleCalculate} calculating={isCalculating} resetFunc={resetFunc}/>
+                <ButtonsPack resetFunction={resetFunction}/>
            </form>
+           {isCalculating && <Spinner/>}
            {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>
     )
