@@ -46,10 +46,16 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
    }
 
    const onSubmit: SubmitHandler<PatienValues> = (data) => {
-    const { peso_actual, peso_ideal } = data;
-    const pic = getPIC(peso_actual, peso_ideal)
-    setResult(pic)
-    setIsCalculating(false)
+    const { peso_actual, peso_ideal } = data
+    if(peso_actual.toString() !== "" && peso_ideal.toString() !== ""){
+        if(!isOpen){
+            setIsCalculating(true)
+            const pic = getPIC(peso_actual, peso_ideal)
+            setResult(pic)
+            onToggle()
+            setIsCalculating(false)
+        }
+    }
    }
 
    const resetFunction = () => {
@@ -85,10 +91,10 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
                             key={"ideal"}
                         />
                 </BoXContainer>
-                <ButtonsPack resetFunction={resetFunction}/>
+                <ButtonsPack result={result} resetFunction={resetFunction}/>
            </form>
            {isCalculating && <Spinner/>}
-           {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
+           {result !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>
     )
 }

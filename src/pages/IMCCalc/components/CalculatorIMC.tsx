@@ -47,10 +47,15 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
 
     const onSubmit: SubmitHandler<PatienValues> = (data) => {
         const {peso_actual, altura} = data
-
-        const imc = getIMC(peso_actual, altura)
-        setResult(parseFloat(imc as string))
-        setIsCalculating(false)
+        if(peso_actual.toString() !== "" && altura.toString() !== ""){
+            if(!isOpen){
+                setIsCalculating(true)
+                const imc = getIMC(peso_actual, altura)
+                setResult(parseFloat(imc as string))
+                onToggle()
+                setIsCalculating(false)
+            }
+        }        
     }
 
     const tag = "Indice de Masa Corporal"
@@ -80,10 +85,10 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
                         key={"altura"}
                     />
                 </BoXContainer>
-                <ButtonsPack resetFunction={resetFunction}/>
+                <ButtonsPack result={result} resetFunction={resetFunction}/>
             </form>
             {isCalculating && <Spinner/>}
-            {result !== undefined && !isNaN(result) && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
+            {result !== undefined && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
         </Box>
     )
 }

@@ -87,7 +87,7 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
                         enumOptions={EGenero}
                     />
                 </BoXContainer>
-                <ButtonsPack   resetFunction={resetFunction}/>
+                <ButtonsPack result={result}  resetFunction={resetFunction}/>
             </form>
             {isCalculating && <Spinner/>}
             {result !== undefined && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
