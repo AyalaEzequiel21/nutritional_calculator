@@ -7,6 +7,7 @@ import { PesoIdealCorregidoPage } from './pages/PesoIdealCorregidoCalc/PesoIdeal
 import { ValorCaloricoTotalPage } from './pages/ValorCaloricoTotalCalc/ValorCaloricoTotal';
 import { IMCCalcPage } from './pages/IMCCalc/IMCCalc';
 import { Header } from './components/header/Header';
+import GlobalContextProvider from './context/GlobalContext';
 
 function App() {
 
@@ -19,20 +20,22 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <BrowserRouter basename='/nutritional_calculator'>
-        <Header />
-        <Container >
-          <Routes>
-            <Route path='/' element={<Home/>} />
-            <Route path='/IMC' element={<IMCCalcPage/>} />
-            <Route path='/formDesarrollada' element={<FormDesarrolladaPage/>} />
-            <Route path='/hamwi' element={<FormHamwiPage/>} />
-            <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />
-            <Route path='/valorCaloricoTotal' element={<ValorCaloricoTotalPage/>} />
-            <Route path='*' element={<Home/>} />
-          </Routes>
-        </Container>
-      </BrowserRouter>
+        <BrowserRouter basename='/nutritional_calculator'>
+          <GlobalContextProvider>
+            <Header />
+            <Container >
+              <Routes>
+                <Route path='/' element={<Home/>} />
+                <Route path='/IMC' element={<IMCCalcPage/>} />
+                <Route path='/formDesarrollada' element={<FormDesarrolladaPage/>} />
+                <Route path='/hamwi' element={<FormHamwiPage/>} />
+                <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />
+                <Route path='/valorCaloricoTotal' element={<ValorCaloricoTotalPage/>} />
+                <Route path='*' element={<Home/>} />
+              </Routes>
+            </Container>
+          </GlobalContextProvider>
+        </BrowserRouter>
     </ChakraProvider>
   )
 }

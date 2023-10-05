@@ -13,12 +13,17 @@ import { CustomSelect } from "../../../components/customSelect/CustomSelect";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { CardResult } from "../../../components/cardResult/CardResult";
 import { EGenero } from "../../../enums/EGenero";
+// import { useGlobalContext } from "../../../context/useGlobalContext";
+
 
 export interface CalcHamwiProps {}
 
 export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
-    const [result, setResult] = useState<number | undefined>(undefined)
+    const [resultHamwi, setResultHamwi] = useState<number | undefined>(undefined)
     const [isCalculating, setIsCalculating] = useState<boolean>(false)
+    // const context = useGlobalContext()
+    
+
 
 
     const schema = z.object({
@@ -49,9 +54,10 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
                 if(!isOpen){
                     setIsCalculating(true)
                     const totalWeight = hamwiForm(altura, genero)
-                    setResult(parseFloat(totalWeight))
+                    setResultHamwi(parseFloat(totalWeight))
                     onToggle()
                     setIsCalculating(false)
+                    // setResults({...results, peso_ideal: resultHamwi})
                 }
         }
     }
@@ -59,8 +65,9 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
     const resetFunction = () => {
         if(isOpen){
             reset()
-            setResult(undefined)
+            setResultHamwi(undefined)
             onToggle()
+            // setResults({...results, peso_ideal: undefined})
         }
     }
 
@@ -87,10 +94,10 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
                         enumOptions={EGenero}
                     />
                 </BoXContainer>
-                <ButtonsPack result={result}  resetFunction={resetFunction}/>
+                <ButtonsPack result={resultHamwi}  resetFunction={resetFunction}/>
             </form>
             {isCalculating && <Spinner/>}
-            {result !== undefined && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
+            {resultHamwi !== undefined && <CardResult isOpen={isOpen} tag={tag} value={resultHamwi}/>}
         </Box>
     )
 }
