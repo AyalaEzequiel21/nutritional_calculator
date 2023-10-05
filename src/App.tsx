@@ -8,6 +8,7 @@ import { ValorCaloricoTotalPage } from './pages/ValorCaloricoTotalCalc/ValorCalo
 import { IMCCalcPage } from './pages/IMCCalc/IMCCalc';
 import { Header } from './components/header/Header';
 import GlobalContextProvider from './context/GlobalContext';
+import { ResultsPage } from './pages/Results/Results';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
                 <Route path='/hamwi' element={<FormHamwiPage/>} />
                 <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />
                 <Route path='/valorCaloricoTotal' element={<ValorCaloricoTotalPage/>} />
+                <Route path='/results' element={<ResultsPage/>} />
                 <Route path='*' element={<Home/>} />
               </Routes>
             </Container>

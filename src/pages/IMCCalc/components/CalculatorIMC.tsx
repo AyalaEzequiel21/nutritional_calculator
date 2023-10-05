@@ -1,18 +1,21 @@
 import { UseDisclosureReturn, useDisclosure, Box, Spinner } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
 import { CustomInput } from "../../../components/customInput/CustomInput";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { CardResult } from "../../../components/cardResult/CardResult";
+import { useGlobalContext } from "../../../context/useGlobalContext";
 
 export interface CalculatorIMCProps {}
 
 export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
 
-    const [result, setResult] = useState<number|undefined>(undefined)
+    const [resultIMC, setResultIMC] = useState<number|undefined>(undefined)
     const [isCalculating, setIsCalculating] = useState<boolean>(false)
+
+    const {results, setResults} = useGlobalContext()
 
     const schema = z.object({
         peso_actual: z.number().min(0).max(299.9),
@@ -20,6 +23,8 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
     })
 
     type PatienValues = z.infer<typeof schema>
+
+    const tag = "Indice de Masa Corporal"
 
     const { register, reset, handleSubmit, formState: {errors} } = useForm<PatienValues>()
    
@@ -39,8 +44,9 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
     const resetFunction = () => {
         if(isOpen){
             reset()
-            setResult(undefined)
+            setResultIMC(undefined)
             onToggle()
+            setResults({...results, indice_masa_corporal: 0})
         }
     }
 
@@ -51,14 +57,19 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
             if(!isOpen){
                 setIsCalculating(true)
                 const imc = getIMC(peso_actual, altura)
-                setResult(parseFloat(imc as string))
+                setResultIMC(parseFloat(imc as string))
                 onToggle()
                 setIsCalculating(false)
             }
         }        
     }
 
-    const tag = "Indice de Masa Corporal"
+    useEffect(()=> {
+        if(resultIMC !== undefined){
+            setResults({...results, indice_masa_corporal: resultIMC})
+        }
+    }, [resultIMC])
+
 
     return (
         <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
@@ -85,10 +96,10 @@ export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
                         key={"altura"}
                     />
                 </BoXContainer>
-                <ButtonsPack result={result} resetFunction={resetFunction}/>
+                <ButtonsPack result={resultIMC} resetFunction={resetFunction}/>
             </form>
             {isCalculating && <Spinner/>}
-            {result !== undefined && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
+            {resultIMC !== undefined && <CardResult isOpen={isOpen} tag={tag} value={resultIMC}/>}
         </Box>
     )
 }

@@ -1,34 +1,31 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react"
 
-export interface ContextStatesTypes {
+interface ContextData {
     results: Record<string, number>
-    setResults: Dispatch<SetStateAction<Record<string, number>>>
+    setResults: React.Dispatch<React.SetStateAction<Record<string, number>>>
 }
 
- export const GlobalContext = createContext<ContextStatesTypes|undefined>(undefined)
+const initialContextData: ContextData = {
+    results: {},
+    setResults: () => {}
+}
 
-interface GlobalContextProps {
+export const GlobalContext = createContext<ContextData>(initialContextData)
+
+interface GlobalContextProviderProps {
     children: React.ReactNode
 }
-
-const initialValue = {
-    peso_ideal: 0,
-    peso_ideal_corregido: 0,
-    indice_masa_corporal: 0
-}
-
-const GlobalContextProvider: React.FC<GlobalContextProps> = ({children}) => {
-    const [results, setResults] = useState<Record<string, number>>(initialValue)
-
-    const contextValue: ContextStatesTypes = {
-        results, 
-        setResults
-    }
+const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({children}) => {
+    const [results, setResults] = useState<Record<string, number>>({})
+    useEffect(()=> {
+        console.log(results);
+    }, [results])
 
     return (
-        <GlobalContext.Provider value={contextValue}>
+        <GlobalContext.Provider value={{results, setResults}}>
             {children}
         </GlobalContext.Provider>
     )
 }
+
 export default GlobalContextProvider

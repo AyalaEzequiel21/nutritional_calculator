@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { 
@@ -11,14 +11,16 @@ import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
 import { CustomInput } from "../../../components/customInput/CustomInput";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { CardResult } from "../../../components/cardResult/CardResult";
+import { useGlobalContext } from "../../../context/useGlobalContext";
 
 
-export interface CalculatorPesoIdealProps{}
+export interface CalculatorPesoIdealCorregidoProps{}
 
-export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = () => {
-   const [result, setResult] = useState<number | undefined>(undefined)
+export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealCorregidoProps> = () => {
+   const [resultPIC, setResultPIC] = useState<number | undefined>(undefined)
    const [isCalculating, setIsCalculating] = useState<boolean>(false)
 
+    const {results, setResults} = useGlobalContext()
    
    const schema = z.object({
     peso_actual: z.number().min(0).max(199.9),
@@ -51,7 +53,7 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
         if(!isOpen){
             setIsCalculating(true)
             const pic = getPIC(peso_actual, peso_ideal)
-            setResult(pic)
+            setResultPIC(pic)
             onToggle()
             setIsCalculating(false)
         }
@@ -61,10 +63,17 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
    const resetFunction = () => {
         if(isOpen){
             reset()
-            setResult(undefined)
+            setResultPIC(undefined)
             onToggle()
+            setResults({...results, peso_ideal_corregido: 0})
         }
     }
+
+    useEffect(()=> {
+        if(resultPIC !== undefined){
+            setResults({...results, peso_ideal_corregido: resultPIC})
+        }
+    }, [resultPIC])
 
     return (
         <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
@@ -91,10 +100,10 @@ export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealProps> = 
                             key={"ideal"}
                         />
                 </BoXContainer>
-                <ButtonsPack result={result} resetFunction={resetFunction}/>
+                <ButtonsPack result={resultPIC} resetFunction={resetFunction}/>
            </form>
            {isCalculating && <Spinner/>}
-           {result !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
+           {resultPIC !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={resultPIC}/>}
         </Box>
     )
 }

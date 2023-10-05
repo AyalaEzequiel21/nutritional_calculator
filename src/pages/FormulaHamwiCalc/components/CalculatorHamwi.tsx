@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { 
@@ -13,7 +13,7 @@ import { CustomSelect } from "../../../components/customSelect/CustomSelect";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { CardResult } from "../../../components/cardResult/CardResult";
 import { EGenero } from "../../../enums/EGenero";
-// import { useGlobalContext } from "../../../context/useGlobalContext";
+import { useGlobalContext } from "../../../context/useGlobalContext";
 
 
 export interface CalcHamwiProps {}
@@ -21,9 +21,7 @@ export interface CalcHamwiProps {}
 export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
     const [resultHamwi, setResultHamwi] = useState<number | undefined>(undefined)
     const [isCalculating, setIsCalculating] = useState<boolean>(false)
-    // const context = useGlobalContext()
-    
-
+    const {results, setResults} = useGlobalContext()
 
 
     const schema = z.object({
@@ -57,7 +55,6 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
                     setResultHamwi(parseFloat(totalWeight))
                     onToggle()
                     setIsCalculating(false)
-                    // setResults({...results, peso_ideal: resultHamwi})
                 }
         }
     }
@@ -67,9 +64,15 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
             reset()
             setResultHamwi(undefined)
             onToggle()
-            // setResults({...results, peso_ideal: undefined})
+            setResults({...results, peso_ideal: 0})
         }
     }
+
+    useEffect(()=> {
+        if(resultHamwi !== undefined){
+            setResults({...results, peso_ideal: resultHamwi})
+        }
+    }, [resultHamwi])
 
     return (
         <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
