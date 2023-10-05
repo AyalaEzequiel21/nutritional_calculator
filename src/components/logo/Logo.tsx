@@ -8,13 +8,22 @@ export interface LogoProps {
 }
 
 export const Logo: React.FC<LogoProps> = () => {
+
     return (
         <Box boxSize='s'>
             <Link
                 as={RouterLink}
                 to={"/"}
+                _hover={{transform: "scale(1.1)"}}
+                transition={"transform 0.3s ease"}
+                display={"inline-block"}                
             >
-                <Image src={imagePalta} alt='Imagen de una palta animada' boxSize='150px' objectFit='cover'/>
+                <Image 
+                    src={imagePalta} 
+                    alt='Imagen de una palta animada' 
+                    boxSize='150px' 
+                    objectFit='cover'
+                />
             </Link>
         </Box>
     )
