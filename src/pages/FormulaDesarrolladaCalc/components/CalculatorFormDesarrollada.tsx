@@ -30,6 +30,7 @@ export const CalculatorFormDesarrollada: React.FC<CalculatorFormDesarProps> = ()
             handleSubmit={handleSubmit}
             reset={reset}
             patienValues={{} as PatienValues}
+            unit="x"
         >
             <CustomInput 
                 label="Peso Actual (Kg)"
