@@ -1,70 +1,77 @@
-// import {useState} from "react";
-// import { SubmitHandler, useForm } from "react-hook-form";
-// import { 
-//     Box, 
-//     useDisclosure,
-//     UseDisclosureReturn, 
-//     Spinner 
-// } from "@chakra-ui/react";
-// import { CardResult } from "../cardResult/CardResult";
-// import { BoXContainer } from "../boxContainer/BoxContainer";
-// import { ButtonsPack } from "../buttonsPack/ButtonsPack";
+import React, { useEffect, useState } from "react";
+import { useGlobalContext } from "../../context/useGlobalContext";
+import { Box, Spinner, UseDisclosureReturn, useDisclosure } from "@chakra-ui/react";
+import { BoXContainer } from "../boxContainer/BoxContainer";
+import { ButtonsPack } from "../buttonsPack/ButtonsPack";
+import { CardResult } from "../cardResult/CardResult";
+import { SubmitHandler, FieldValues, UseFormHandleSubmit} from "react-hook-form";
 
 
-// export interface CalcHamwiProps {
-//     typeValues: 
-//     tag: string
-//     formula: ()=> string
-//     children: React.ReactNode
-// }
 
-// export const CalculatorHamwi: React.FC<CalcHamwiProps> = ({
-//     typeValues,
-//     tag, 
-//     formula, 
-//     children
-// }) => {
-//     const [result, setResult] = useState<number | undefined>(undefined)
-//     const [isCalculating, setIsCalculating] = useState<boolean>(false)
+interface CalculatorLayoutProps{
+    children: React.ReactNode
+    tag: string
+    formFunction: (data: unknown[]) => string | undefined
+    reset: ()=> void
+    handleSubmit: UseFormHandleSubmit<FieldValues>
+    patienValues: FieldValues
+    unit: string
+}
+export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
+    children,
+    tag, 
+    formFunction,
+    reset, 
+    handleSubmit, 
+    patienValues,
+    unit
+}) => {
+    const [partialResult, setPartialResult] = useState<number | undefined>(undefined)
+    const [isCalculating, setIsCalculating] = useState<boolean>(false)
+    const { results, setResults } = useGlobalContext()
 
+    const { isOpen, onToggle } : UseDisclosureReturn = useDisclosure()
+
+    const onSubmit: SubmitHandler<typeof patienValues> = (data) => {     
     
-//        const { register, reset, handleSubmit, formState: {errors} } = useForm<PatienValues>()
-       
-//        const { isOpen, onToggle }: UseDisclosureReturn = useDisclosure()
+       const parametros = Object.values(data)
+       if(!isOpen){
+                setIsCalculating(true)
+                const resultForm = formFunction(parametros)
+                if(resultForm !== undefined){
+                    setPartialResult(parseFloat(resultForm))
+                    onToggle()
+                    setIsCalculating(false)
+                }
+                setIsCalculating(false)
+        }
+    }
 
-       
+    const resetFunction = () => {
+        if(isOpen){
+            reset()
+            setPartialResult(undefined)
+            onToggle()
+            setResults({...results, [tag]: 0})
+        }
+    }
 
-//        const onSubmit: SubmitHandler<typeValues> = (data) => {
-//            const {typeValues.xx, typeValues.yy} = data
-//             if (yy.toString() !== "" && xx.toString() !== ""){
-//                 if(!isOpen){
-//                     setIsCalculating(true)
-//                     const finalResult = formula(typesValues.yy, typesValues.xx)
-//                     setResult(parseFloat(finalResult))
-//                     onToggle()
-//                     setIsCalculating(false)
-//                 }
-//         }
-//     }
+    useEffect(() => {
+        if(partialResult !== undefined && !isNaN(partialResult)){
+            setResults({...results, [tag]: partialResult})
+        }
+    }, [partialResult])
 
-//     const resetFunction = () => {
-//         if(isOpen){
-//             reset()
-//             setResult(undefined)
-//             onToggle()
-//         }
-//     }
-
-//     return (
-//         <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
-//             <form onSubmit={handleSubmit(onSubmit)}>
-//                 <BoXContainer>
-//                     {children}
-//                 </BoXContainer>
-//                 <ButtonsPack result={result}  resetFunction={resetFunction}/>
-//             </form>
-//             {isCalculating && <Spinner/>}
-//             {result !== undefined && <CardResult isOpen={isOpen} tag={tag} value={result}/>}
-//         </Box>
-//     )
-// }
+    return (
+        <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <BoXContainer>
+                    {children}
+                </BoXContainer>
+                <ButtonsPack result={partialResult} resetFunction={resetFunction} />
+            </form>
+            {isCalculating && <Spinner/>}
+            {partialResult !== undefined && !isNaN(partialResult) && <CardResult isOpen={isOpen} tag={tag} value={partialResult} unit={unit}/>}
+        </Box>  
+    )
+}

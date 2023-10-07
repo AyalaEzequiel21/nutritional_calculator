@@ -1,5 +1,6 @@
 import React from "react";
 import { Layout } from "../../components/Layout/Layout";
+import { CalculatorFormDesarrollada } from "./components/CalculatorFormDesarrollada";
 
 export interface FormDesProp {
 
@@ -8,7 +9,7 @@ export interface FormDesProp {
 export const FormDesarrolladaPage: React.FC<FormDesProp> = () => {
     return (
         <Layout title="Formula Desarrollada">
-                <h3>ya casi</h3>
+                <CalculatorFormDesarrollada />
         </Layout>
     )
 }

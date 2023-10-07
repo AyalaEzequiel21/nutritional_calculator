@@ -1,110 +1,55 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { 
-    Box, 
-    useDisclosure,
-    UseDisclosureReturn, 
-    Spinner
-} from "@chakra-ui/react";
-import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
+import { useForm } from "react-hook-form";
 import { CustomInput } from "../../../components/customInput/CustomInput";
-import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
-import { CardResult } from "../../../components/cardResult/CardResult";
-import { useGlobalContext } from "../../../context/useGlobalContext";
+import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
+import { getPIC } from "../../../formulas/nutritionalFormulas";
 
 
 export interface CalculatorPesoIdealCorregidoProps{}
 
 export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealCorregidoProps> = () => {
-   const [resultPIC, setResultPIC] = useState<number | undefined>(undefined)
-   const [isCalculating, setIsCalculating] = useState<boolean>(false)
-
-    const {results, setResults} = useGlobalContext()
    
    const schema = z.object({
     peso_actual: z.number().min(0).max(199.9),
     peso_ideal: z.number().min(0).max(199.9)
    })
 
-   type PatienValues = z.infer<typeof schema>
+   type PatienValuesPIC = z.infer<typeof schema>
 
-   const { register, reset, handleSubmit, formState: {errors} } = useForm<PatienValues>()
+   const { register, reset, handleSubmit, formState: {errors} } = useForm<PatienValuesPIC>()
    
-   const { isOpen, onToggle }: UseDisclosureReturn = useDisclosure()
-
-   const tag = "Peso ideal corregido"
-
-   const getPIC = (pesoActual: number, pesoIdeal: number) => {
-    if(pesoActual !== undefined && pesoIdeal !== undefined){
-        const peso_actual_float = parseFloat(pesoActual.toString());
-        const peso_ideal_float = parseFloat(pesoIdeal.toString());
-    
-        const firstStep = peso_actual_float - peso_ideal_float
-        const secondStep = firstStep * 0.25
-        return secondStep + peso_ideal_float
-    }
-    return undefined
-   }
-
-   const onSubmit: SubmitHandler<PatienValues> = (data) => {
-    const { peso_actual, peso_ideal } = data
-    if(peso_actual.toString() !== "" && peso_ideal.toString() !== ""){
-        if(!isOpen){
-            setIsCalculating(true)
-            const pic = getPIC(peso_actual, peso_ideal)
-            setResultPIC(pic)
-            onToggle()
-            setIsCalculating(false)
-        }
-    }
-   }
-
-   const resetFunction = () => {
-        if(isOpen){
-            reset()
-            setResultPIC(undefined)
-            onToggle()
-            setResults({...results, peso_ideal_corregido: 0})
-        }
-    }
-
-    useEffect(()=> {
-        if(resultPIC !== undefined){
-            setResults({...results, peso_ideal_corregido: resultPIC})
-        }
-    }, [resultPIC])
-
-    return (
-        <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
-           <form onSubmit={handleSubmit(onSubmit)}>
-                <BoXContainer>
-                        <CustomInput 
-                            label="Peso Actual (Kg)"
-                            name="peso_actual"
-                            register={register}
-                            error={errors.peso_actual?.message}
-                            placeHolder="0.0"
-                            type="number"
-                            step={0.1}
-                            key={"actual"}
-                        />
-                        <CustomInput 
-                            label="Peso Ideal (Kg)"
-                            name="peso_ideal"
-                            register={register}
-                            error={errors.peso_ideal?.message}
-                            placeHolder="0.0"
-                            type="number"
-                            step={0.1}
-                            key={"ideal"}
-                        />
-                </BoXContainer>
-                <ButtonsPack result={resultPIC} resetFunction={resetFunction}/>
-           </form>
-           {isCalculating && <Spinner/>}
-           {resultPIC !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={resultPIC}/>}
-        </Box>
+   return (
+        <CalculatorLayout 
+            tag="Peso ideal corregido"
+            formFunction={getPIC}
+            handleSubmit={handleSubmit}
+            reset={reset}
+            patienValues={{} as PatienValuesPIC}
+            unit="Kg"
+        >    
+            <CustomInput 
+                label="Peso Actual (Kg)"
+                name="peso_actual"
+                register={register}
+                error={errors.peso_actual?.message}
+                placeHolder="0.0"
+                type="number"
+                step={0.1}
+                key={"actual"}
+            />
+            <CustomInput 
+                label="Peso Ideal (Kg)"
+                name="peso_ideal"
+                register={register}
+                error={errors.peso_ideal?.message}
+                placeHolder="0.0"
+                type="number"
+                step={0.1}
+                key={"ideal"}
+            />
+        </CalculatorLayout>
+                
     )
 }
 

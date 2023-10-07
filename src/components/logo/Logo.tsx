@@ -10,7 +10,7 @@ export interface LogoProps {
 export const Logo: React.FC<LogoProps> = () => {
 
     return (
-        <Box boxSize='s'>
+        <Box boxSize='s' m={3}>
             <Link
                 as={RouterLink}
                 to={"/"}

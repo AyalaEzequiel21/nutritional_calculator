@@ -25,9 +25,9 @@ export const HomeList: React.FC<HomeListProps> = () => {
           key={"PIC"}
         />
         <ButtonLink 
-          direction="/formDesarrollada"
-          label="Formula desarrollada"
-          key={"FD"}
+          direction="/ppu"
+          label="Porcentaje de Peso Usual"
+          key={"PPU"}
         />
         <ButtonLink 
           direction="/valorCaloricoTotal"

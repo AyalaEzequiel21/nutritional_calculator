@@ -9,6 +9,7 @@ import { IMCCalcPage } from './pages/IMCCalc/IMCCalc';
 import { Header } from './components/header/Header';
 import GlobalContextProvider from './context/GlobalContext';
 import { ResultsPage } from './pages/Results/Results';
+import { PorcentajePesoUsualPage } from './pages/PorcentajePesoUsualCalc/PorcentajePesoUsual';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/IMC' element={<IMCCalcPage/>} />
                 <Route path='/formDesarrollada' element={<FormDesarrolladaPage/>} />
                 <Route path='/hamwi' element={<FormHamwiPage/>} />
+                <Route path='/ppu' element={<PorcentajePesoUsualPage />} />
                 <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />
                 <Route path='/valorCaloricoTotal' element={<ValorCaloricoTotalPage/>} />
                 <Route path='/results' element={<ResultsPage/>} />
