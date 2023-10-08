@@ -3,7 +3,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { CustomInput } from "../../../components/customInput/CustomInput";
 import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
-import { getPIC } from "../../../formulas/nutritionalFormulas";
+import { getPIC } from "../../../data/nutritionalFormulas";
 
 
 export interface CalculatorPesoIdealCorregidoProps{}

@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from "react"
 
 interface ContextData {
-    results: Record<string, number>
-    setResults: React.Dispatch<React.SetStateAction<Record<string, number>>>
+    results: Record<string, string>
+    setResults: React.Dispatch<React.SetStateAction<Record<string, string>>>
 }
 
 const initialContextData: ContextData = {
@@ -16,7 +16,7 @@ interface GlobalContextProviderProps {
     children: React.ReactNode
 }
 const GlobalContextProvider: React.FC<GlobalContextProviderProps> = ({children}) => {
-    const [results, setResults] = useState<Record<string, number>>({})
+    const [results, setResults] = useState<Record<string, string>>({})
     useEffect(()=> {
         console.log(results);
     }, [results])

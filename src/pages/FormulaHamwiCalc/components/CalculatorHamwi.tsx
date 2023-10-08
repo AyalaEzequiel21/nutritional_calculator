@@ -5,7 +5,7 @@ import { CustomInput } from "../../../components/customInput/CustomInput";
 import { CustomSelect } from "../../../components/customSelect/CustomSelect";
 import { EGenero } from "../../../enums/EGenero";
 import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
-import { getHamwi } from "../../../formulas/nutritionalFormulas";
+import { getHamwi } from "../../../data/nutritionalFormulas";
 
 
 export interface CalcHamwiProps {}

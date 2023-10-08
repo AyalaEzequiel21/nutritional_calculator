@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CustomInput } from "../../../components/customInput/CustomInput";
 import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
-import { getIMC } from "../../../formulas/nutritionalFormulas";
+import { getIMC } from "../../../data/nutritionalFormulas";
 
 export interface CalculatorIMCProps {}
 

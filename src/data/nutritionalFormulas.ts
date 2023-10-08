@@ -4,7 +4,7 @@ import { EGenero } from "../enums/EGenero"
     
 export const getIMC = (data: unknown[]): string | undefined => {
     if (Array.isArray(data) && data.length === 2) {
-      const [peso_actual, altura] = data;
+      const [peso_actual, altura] = data;      
   
       if (typeof peso_actual === 'string' && typeof altura === 'string') {
         const peso_actual_float = parseFloat(peso_actual.toString());
@@ -63,6 +63,26 @@ export const getPIC = (data: unknown[]): string | undefined => {
         const firstStep = parseFloat(pesoActual) / parseFloat(pesoHabitual)
         const secondStep = firstStep * 100
         return secondStep.toFixed(2)
+      }
+    }
+    return undefined
+   }
+
+   // FORMULA PARA OBTENER EL PORCENTAJE DE PERDIDA DE PESO, RECIBE PESO ACTUAL(NUMBER) Y PESO HABITUAL(NUMBER)
+   
+   export const getPorcentajePerdidaPeso = (data: unknown[]): string | undefined => {
+    if (Array.isArray(data) && data.length === 2) {
+      const [pesoActual, pesoHabitual] = data
+
+      if(typeof pesoActual === 'string' && typeof pesoHabitual === 'string'){
+        const peso_actual_float = parseFloat(pesoActual);
+        const peso_habitual_float = parseFloat(pesoHabitual);
+
+        const firstStep = peso_habitual_float - peso_actual_float
+        const secondStep = firstStep / peso_habitual_float
+        const final = secondStep * 100
+
+        return final.toFixed(2)
       }
     }
     return undefined

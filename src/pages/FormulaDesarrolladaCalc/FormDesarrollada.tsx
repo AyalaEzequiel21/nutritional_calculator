@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "../../components/Layout/Layout";
-import { CalculatorFormDesarrollada } from "./components/CalculatorFormDesarrollada";
+import { TableFormDesarrollada } from "./components/TableFormDesarrollada";
 
 export interface FormDesProp {
 
@@ -9,7 +9,7 @@ export interface FormDesProp {
 export const FormDesarrolladaPage: React.FC<FormDesProp> = () => {
     return (
         <Layout title="Formula Desarrollada">
-                <CalculatorFormDesarrollada />
+                <TableFormDesarrollada />
         </Layout>
     )
 }

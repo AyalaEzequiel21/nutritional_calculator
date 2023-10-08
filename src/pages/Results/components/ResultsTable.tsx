@@ -14,8 +14,8 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({results}) => {
                 <TableCaption color={stylesValues.colors.text}>Resultados de las fórmulas</TableCaption>
                 <Thead>
                     <Tr>
-                        <Th color={stylesValues.colors.text}>Fórmula</Th>
-                        <Th color={stylesValues.colors.decorative}>Resultado</Th>
+                        <Th fontSize={"md"} color={stylesValues.colors.text}>Fórmula</Th>
+                        <Th fontSize={"md"} color={stylesValues.colors.decorative}>Resultado</Th>
                     </Tr>
                 </Thead>
                 <Tbody>

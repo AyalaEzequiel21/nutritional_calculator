@@ -1,30 +1,31 @@
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout"
+import React from "react";
+import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { getPPU } from "../../../data/nutritionalFormulas";
+import { getPorcentajePerdidaPeso } from "../../../data/nutritionalFormulas";
 import { CustomInput } from "../../../components/customInput/CustomInput";
 
 
-interface CalculatorPPUProps {}
+interface CalculatorPPPProps {}
 
-export const CalculatorPPU: React.FC<CalculatorPPUProps> = () => {
+export const CalculatorPorcPerdidaPeso: React.FC<CalculatorPPPProps> = () => {
 
     const schema = z.object({
         peso_actual: z.number().min(0).max(299.9),
-        peso_habitual: z.number().min(0).max(299.9)
+        peso_habitual: z.number().min(0).max(299.99)
     })
 
-    type PatienValuesPPU = z.infer<typeof schema>
+    type PatienValuesPPP = z.infer<typeof schema>
 
-    const { register, reset, handleSubmit, formState: {errors} } = useForm<PatienValuesPPU>()
-    
-    return (
+    const { register, reset, handleSubmit, formState: {errors} } = useForm<PatienValuesPPP>()
+
+    return(
         <CalculatorLayout 
-            tag="Porcentaje Peso Usual"
-            formFunction={getPPU}
+            tag="Porcentaje de Perdida de Peso"
+            formFunction={getPorcentajePerdidaPeso}
             handleSubmit={handleSubmit}
             reset={reset}
-            patienValues={{} as PatienValuesPPU}
+            patienValues={{} as PatienValuesPPP}
             unit="%"
         >
             <CustomInput 

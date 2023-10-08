@@ -26,7 +26,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
     patienValues,
     unit
 }) => {
-    const [partialResult, setPartialResult] = useState<number | undefined>(undefined)
+    const [partialResult, setPartialResult] = useState<string | undefined>(undefined)
     const [isCalculating, setIsCalculating] = useState<boolean>(false)
     const { results, setResults } = useGlobalContext()
 
@@ -35,11 +35,13 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
     const onSubmit: SubmitHandler<typeof patienValues> = (data) => {     
     
        const parametros = Object.values(data)
+       
        if(!isOpen){
                 setIsCalculating(true)
                 const resultForm = formFunction(parametros)
-                if(resultForm !== undefined){
-                    setPartialResult(parseFloat(resultForm))
+                
+                if(resultForm !== undefined && !isNaN(parseFloat(resultForm))){
+                    setPartialResult(`${resultForm} ${unit}`)
                     onToggle()
                     setIsCalculating(false)
                 }
@@ -52,12 +54,12 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
             reset()
             setPartialResult(undefined)
             onToggle()
-            setResults({...results, [tag]: 0})
+            setResults({...results, [tag]: ""})
         }
     }
 
     useEffect(() => {
-        if(partialResult !== undefined && !isNaN(partialResult)){
+        if(partialResult !== undefined ){
             setResults({...results, [tag]: partialResult})
         }
     }, [partialResult])
@@ -71,7 +73,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
                 <ButtonsPack result={partialResult} resetFunction={resetFunction} />
             </form>
             {isCalculating && <Spinner/>}
-            {partialResult !== undefined && !isNaN(partialResult) && <CardResult isOpen={isOpen} tag={tag} value={partialResult} unit={unit}/>}
+            {partialResult !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={partialResult} />}
         </Box>  
     )
 }

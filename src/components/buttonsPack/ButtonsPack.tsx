@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export interface ButtonsPackProps {
     resetFunction: ()=> void
-    result: number | undefined
+    result: string | undefined
 }
 
 export const ButtonsPack: React.FC<ButtonsPackProps> = ({resetFunction, result}) => {

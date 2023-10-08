@@ -10,6 +10,7 @@ import { Header } from './components/header/Header';
 import GlobalContextProvider from './context/GlobalContext';
 import { ResultsPage } from './pages/Results/Results';
 import { PorcentajePesoUsualPage } from './pages/PorcentajePesoUsualCalc/PorcentajePesoUsual';
+import { PorcentajePerdidaPesoPage } from './pages/PorcentajePerdidaPeso/PorcentajePerdidaPeso';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
                 <Route path='/formDesarrollada' element={<FormDesarrolladaPage/>} />
                 <Route path='/hamwi' element={<FormHamwiPage/>} />
                 <Route path='/ppu' element={<PorcentajePesoUsualPage />} />
+                <Route path='porcentajePerdidaPeso' element={<PorcentajePerdidaPesoPage/>} />
                 <Route path='/pesoIdealCorregido' element={<PesoIdealCorregidoPage/>} />
                 <Route path='/valorCaloricoTotal' element={<ValorCaloricoTotalPage/>} />
                 <Route path='/results' element={<ResultsPage/>} />
