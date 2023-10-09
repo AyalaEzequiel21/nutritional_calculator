@@ -3,82 +3,88 @@ import {
     Tr,
     Td,
     Input,
-    Text,
   } from "@chakra-ui/react";
 import { TypeAliment } from "../../../data/aliments";
 import stylesValues from "../../../stylesValues";
+import { UseFormRegister, FieldValues } from "react-hook-form";
+import { TdCustom } from "./TdCustom";
 
 
-interface TableRowProps {
+
+interface TableRowProps<T extends FieldValues> {
     alimento: TypeAliment
-    // updateTotals: (value: number, otherValue: number) => void;
+    register: UseFormRegister<T>
+    inputRef: (el: HTMLInputElement | null) => void
+    updateTotals: ()=> void
 
 }
-
-export const TableRow: React.FC<TableRowProps> = ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const TableRow: React.FC<TableRowProps<any>> = ({
     alimento,
-    // updateTotals
+    register,
+    inputRef,
+    updateTotals
 }) => {
 
     const [inputValue, setInputValue] = useState<number>(0)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)) 
+        const value = isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
+        setInputValue(value) 
+        // register(alimento.name, { value: value });
     }
 
     const calculateTotal = (gr: number, defaultValue: number) => {        
         return (defaultValue * gr) / 100
     }   
     
-    useEffect(() => {
-
-      }, [inputValue]);
+    useEffect(()=> {
+        updateTotals()
+        
+    }, [inputValue])
 
     return (
         <Tr key={alimento.name} color={stylesValues.colors.text}>
             <Td>
                 {alimento.name}
             </Td>
-            <Td display={{ base: "none", md: "table-cell"}} maxW={"60px"}>
-                <Text textAlign={"center"}>
-                    {alimento.HCPer100g === 0 ? "-" : alimento.HCPer100g}
-                </Text>
-            </Td>
-            <Td display={{ base: "none", md: "table-cell"}} maxW={"60px"}>
-                <Text textAlign={"center"}>
-                    {alimento.ProteinPer100g === 0 ? "-" : alimento.ProteinPer100g}
-                </Text>
-            </Td>
-            <Td display={{ base: "none", md: "table-cell"}} maxW={"60px"}>
-                <Text textAlign={"center"}>
-                    {alimento.GrPer100g === 0 ? "-" : alimento.GrPer100g}
-                </Text>
-            </Td>
+            <TdCustom withDisplay={true}>
+                {alimento.HCPer100g === 0 ? "-" : alimento.HCPer100g}
+            </TdCustom>
+            <TdCustom withDisplay={true}>
+                {alimento.ProteinPer100g === 0 ? "-" : alimento.ProteinPer100g}
+            </TdCustom>
+            <TdCustom withDisplay={false}>
+                {alimento.GrPer100g === 0 ? "-" : alimento.GrPer100g}
+            </TdCustom>
             <Td maxW={"50px"}>
                 <Input 
                     type="number"
+                    {...register(alimento.name)}
                     bg={stylesValues.colors.text}
                     color={stylesValues.colors.primary}
                     max={2000}
                     onChange={(e) => onChange(e)}
                     w={"100%"}
+                    ref={(el) => {
+                        inputRef(el);
+                        if (el) {
+                          el.dataset.hcper100g = String((alimento.HCPer100g) / 100);
+                          el.dataset.proteinper100g = String((alimento.ProteinPer100g) / 100);
+                          el.dataset.grper100g = String((alimento.GrPer100g) / 100);
+                        }
+                    }}
                 />
             </Td>
-            <Td>
-                <Text textAlign={"center"}>
-                    {isNaN(calculateTotal(inputValue, alimento.HCPer100g)) || alimento.HCPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.HCPer100g).toFixed(1)}
-                </Text>
-            </Td>
-            <Td>
-                <Text textAlign={"center"}>
-                    {isNaN(calculateTotal(inputValue, alimento.ProteinPer100g)) || alimento.ProteinPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.ProteinPer100g).toFixed(1)}
-                </Text>
-            </Td>
-            <Td>
-                <Text textAlign={"center"}>
-                    {isNaN(calculateTotal(inputValue, alimento.GrPer100g)) || alimento.GrPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.GrPer100g).toFixed(1)}
-                </Text>
-            </Td>
+            <TdCustom withDisplay={false}>
+                {isNaN(calculateTotal(inputValue, alimento.HCPer100g)) || alimento.HCPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.HCPer100g).toFixed(1)}
+            </TdCustom>
+            <TdCustom withDisplay={false}>
+                {isNaN(calculateTotal(inputValue, alimento.ProteinPer100g)) || alimento.ProteinPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.ProteinPer100g).toFixed(1)}
+            </TdCustom>
+            <TdCustom withDisplay={false}>
+                {isNaN(calculateTotal(inputValue, alimento.GrPer100g)) || alimento.GrPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.GrPer100g).toFixed(1)}
+            </TdCustom>
         </Tr>
     )
 }

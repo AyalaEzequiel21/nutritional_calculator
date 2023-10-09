@@ -13,7 +13,7 @@ export const TableDesarrolladaContainer: React.FC<TableContainerProps> = ({child
             boxShadow="lg"
             padding={1} 
             borderRadius="md"
-            maxW={{base: "100%", xl: "1800px"}}
+            maxW={{base: "95%", xl: "1800px"}}
             marginX={"auto"}
             overflowX={"auto"}
         >
