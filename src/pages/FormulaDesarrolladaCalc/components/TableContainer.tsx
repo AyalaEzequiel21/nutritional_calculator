@@ -1,4 +1,4 @@
-import {Box, StackDivider, Stack} from '@chakra-ui/react'
+import { Box} from '@chakra-ui/react'
 import stylesValues from '../../../stylesValues'
 
 interface TableContainerProps {
@@ -11,18 +11,13 @@ export const TableDesarrolladaContainer: React.FC<TableContainerProps> = ({child
             bg={stylesValues.colors.primary}
             color={stylesValues.colors.text}
             boxShadow="lg"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            width={["90vw", "900px"]} 
-            padding={8} 
+            padding={1} 
             borderRadius="md"
-            overflow="auto"          
-
+            maxW={{base: "100%", xl: "1800px"}}
+            marginX={"auto"}
+            overflowX={"auto"}
         >
-            <Stack divider={<StackDivider />} spacing='3' align="center">
-                {children}
-            </Stack>
+            {children}
         </Box>
     )
 }

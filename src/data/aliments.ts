@@ -144,3 +144,10 @@ export const ALIMENTS = [
         GrPer100g: 0
     },
 ]
+
+export type TypeAliment = {
+    name: string,
+    HCPer100g: number,
+    ProteinPer100g: number,
+    GrPer100g: number
+}

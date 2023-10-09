@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Container, ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { Box, ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { Home } from './pages/Home/Home'
 import { FormDesarrolladaPage } from './pages/FormulaDesarrolladaCalc/FormDesarrollada';
 import { FormHamwiPage } from './pages/FormulaHamwiCalc/FormulaHamwi';
@@ -26,7 +26,7 @@ function App() {
         <BrowserRouter basename='/nutritional_calculator'>
           <GlobalContextProvider>
             <Header />
-            <Container >
+            <Box>
               <Routes>
                 <Route path='/' element={<Home/>} />
                 <Route path='/IMC' element={<IMCCalcPage/>} />
@@ -39,7 +39,7 @@ function App() {
                 <Route path='/results' element={<ResultsPage/>} />
                 <Route path='*' element={<Home/>} />
               </Routes>
-            </Container>
+            </Box>
           </GlobalContextProvider>
         </BrowserRouter>
     </ChakraProvider>
