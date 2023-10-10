@@ -12,8 +12,10 @@ export const ThCustom: React.FC<ThCustomProps> = ({children , withDisplay, withC
     return(
         <Th 
             color={stylesValues.colors.text}
-            display={withDisplay ? { base: "none", md: "table-cell"} : undefined}
+            display={withDisplay ? { base: "none", sm: "table-cell"} : undefined}
             colSpan={withColSpan ? 3 : undefined}
+            paddingX={0}
+            paddingY={3}
         >
             <Text textAlign={"center"}>
                 {children}

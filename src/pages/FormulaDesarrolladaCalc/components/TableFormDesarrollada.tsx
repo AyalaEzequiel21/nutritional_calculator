@@ -5,6 +5,7 @@ import {
   Tbody,
   Tr,
   Th,
+  Tfoot,
 } from "@chakra-ui/react";
 import { ALIMENTS } from "../../../data/aliments";
 import stylesValues from "../../../stylesValues";
@@ -14,6 +15,7 @@ import { ThCustom } from "./ThCustom";
 import { TdCustom } from "./TdCustom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
+import { formulaDesarrolladaFunction } from "../../../data/nutritionalFormulas";
 
 interface TableFormDesarProps {}
 
@@ -29,9 +31,9 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
 
     const [result, setResult] = useState<string|undefined>(undefined)
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data);
-        setResult(totalCantidad.toFixed(2))
+    const onSubmit: SubmitHandler<FieldValues> = () => {
+        const quantites = [totalHC, totalProtein, totalGr]
+        setResult(formulaDesarrolladaFunction(quantites));
     }
 
     const onReset = () => {
@@ -52,19 +54,14 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
             cantTotal += grValue;
             hcTotal += (dataset.hcper100g ? parseFloat(dataset.hcper100g) : 0) * grValue;
             proteinTotal += (dataset.proteinper100g ? parseFloat(dataset.proteinper100g) : 0) * grValue;
-            grTotal += (dataset.grper100g ? parseFloat(dataset.grper100g) : 0) * grValue;
-            // console.log(inputRef);
-            
+            grTotal += (dataset.grper100g ? parseFloat(dataset.grper100g) : 0) * grValue;            
           }
         });
     
         setTotalHC(hcTotal);
         setTotalProtein(proteinTotal);
         setTotalGr(grTotal);
-        setTotalCantidad(cantTotal);
-
-        // console.log(totalGr, totalHC, totalProtein);
-        
+        setTotalCantidad(cantTotal);        
       };
 
         
@@ -101,7 +98,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                                 />)
                         )}
                         <Tr>
-                            <TdCustom withDisplay={false} maxWidth={true}>Total</TdCustom>
+                            <TdCustom withDisplay={false} maxWidth={true}>TOTAL (gr)</TdCustom>
                             <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
                             <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
                             <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
@@ -111,6 +108,20 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                             <TdCustom withDisplay={false} maxWidth={true}>{totalGr === 0 || isNaN(totalGr) ? "-" : totalGr.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS G SEGUN LO INGRESADO POR EL USUARIO */}
                         </Tr>
                     </Tbody>
+                    <Tfoot>
+                        <Tr>
+                            <ThCustom withColSpan={false} withDisplay={false}>Total (kcal)</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={true}> </ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={true}> </ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={true}> </ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false}>{}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false}>{(totalHC*4).toFixed(1) || "-"}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false}>{(totalProtein*4).toFixed(1) || "-"}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false}>{(totalGr*4).toFixed(1) || "-"}</ThCustom>
+
+
+                        </Tr>
+                    </Tfoot>
                 </Table>
                 <ButtonsPack resetFunction={onReset} result={result} />
             </form>

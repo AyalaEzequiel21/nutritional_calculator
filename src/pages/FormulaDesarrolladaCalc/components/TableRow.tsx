@@ -31,7 +31,6 @@ export const TableRow: React.FC<TableRowProps<any>> = ({
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = isNaN(parseFloat(e.target.value)) ? 0 : parseFloat(e.target.value)
         setInputValue(value) 
-        // register(alimento.name, { value: value });
     }
 
     const calculateTotal = (gr: number, defaultValue: number) => {        

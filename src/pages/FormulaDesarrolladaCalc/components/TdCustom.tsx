@@ -12,9 +12,10 @@ export const TdCustom: React.FC<TdCustomProps> = ({children , withDisplay, maxWi
     return(
         <Td 
             color={stylesValues.colors.text}
-            display={withDisplay ? { base: "none", md: "table-cell"} : undefined}
+            display={withDisplay ? { base: "none", sm: "table-cell"} : undefined}
             maxW={maxWidth ? {base: "55px", md: "65px"} : undefined}
-            p={1}
+            paddingX={0}
+            paddingY={3}
         >
             <Text textAlign={"center"}>
                 {children}

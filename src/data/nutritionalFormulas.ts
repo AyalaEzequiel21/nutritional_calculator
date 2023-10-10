@@ -87,3 +87,22 @@ export const getPIC = (data: unknown[]): string | undefined => {
     }
     return undefined
    }
+
+  // FORMULA DESARROLLADA PARA OBTENER LAS KILOCALORIAS, RECIBE CANTIDADHC(NUMBER), CANTPROTEINA(NUMBER) Y CANTGRASA(NUMBER)
+  
+  export const formulaDesarrolladaFunction = (data: unknown[]): string | undefined => {
+    if (Array.isArray(data) && data.length === 3){
+      const [cantidadHC, cantidadP, cantidadG] = data
+      console.log(cantidadHC, cantidadP, cantidadG);
+      
+      if(typeof cantidadHC === 'number' && typeof cantidadP === 'number' && typeof cantidadG === 'number'){
+
+        const kcal_HC = cantidadHC * 4
+        const kcal_P = cantidadP * 4
+        const kcal_G = cantidadG * 9
+
+        return (kcal_HC + kcal_P + kcal_G).toFixed(2)
+      }
+    }
+    return undefined
+  }
