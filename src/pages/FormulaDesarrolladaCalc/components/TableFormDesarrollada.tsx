@@ -69,8 +69,8 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
 
         
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <TableDesarrolladaContainer >
+        <TableDesarrolladaContainer >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Table width={"100%"} variant="simple" size={"sm"}>
                     <Thead bg={stylesValues.colors.secondary}>
                         <Tr>
@@ -101,19 +101,19 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                                 />)
                         )}
                         <Tr>
-                            <TdCustom withDisplay={false}>Total</TdCustom>
-                            <TdCustom withDisplay={true}>-</TdCustom>
-                            <TdCustom withDisplay={true}>-</TdCustom>
-                            <TdCustom withDisplay={true}>-</TdCustom>
-                            <TdCustom withDisplay={false}>{totalCantidad === 0 || isNaN(totalCantidad) ? "-" : totalCantidad.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS GRAMOS INGRESADOS POR EL USUARIO */}
-                            <TdCustom withDisplay={false}>{totalHC === 0 || isNaN(totalHC) ? "-" : totalHC.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS HC SEGUN LO INGRESADO POR EL USUARIO */}
-                            <TdCustom withDisplay={false}>{totalProtein === 0 || isNaN(totalProtein) ? "-" : totalProtein.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS P SEGUN LO INGRESADO POR EL USUARIO */}
-                            <TdCustom withDisplay={false}>{totalGr === 0 || isNaN(totalGr) ? "-" : totalGr.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS G SEGUN LO INGRESADO POR EL USUARIO */}
+                            <TdCustom withDisplay={false} maxWidth={true}>Total</TdCustom>
+                            <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
+                            <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
+                            <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
+                            <TdCustom withDisplay={false} maxWidth={true}>{totalCantidad === 0 || isNaN(totalCantidad) ? "-" : totalCantidad.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS GRAMOS INGRESADOS POR EL USUARIO */}
+                            <TdCustom withDisplay={false} maxWidth={true}>{totalHC === 0 || isNaN(totalHC) ? "-" : totalHC.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS HC SEGUN LO INGRESADO POR EL USUARIO */}
+                            <TdCustom withDisplay={false} maxWidth={true}>{totalProtein === 0 || isNaN(totalProtein) ? "-" : totalProtein.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS P SEGUN LO INGRESADO POR EL USUARIO */}
+                            <TdCustom withDisplay={false} maxWidth={true}>{totalGr === 0 || isNaN(totalGr) ? "-" : totalGr.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS G SEGUN LO INGRESADO POR EL USUARIO */}
                         </Tr>
                     </Tbody>
                 </Table>
-            </TableDesarrolladaContainer>
-            <ButtonsPack resetFunction={onReset} result={result} />
-        </form>
+                <ButtonsPack resetFunction={onReset} result={result} />
+            </form>
+        </TableDesarrolladaContainer>
     );
   };
