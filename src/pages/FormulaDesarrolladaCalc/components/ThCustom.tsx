@@ -6,12 +6,13 @@ interface ThCustomProps {
     children: React.ReactNode
     withDisplay: boolean
     withColSpan: boolean
+    isYellow: boolean
 }
 
-export const ThCustom: React.FC<ThCustomProps> = ({children , withDisplay, withColSpan}) => {
+export const ThCustom: React.FC<ThCustomProps> = ({children , withDisplay, withColSpan, isYellow}) => {
     return(
         <Th 
-            color={stylesValues.colors.text}
+            color={isYellow ? stylesValues.colors.decorative : stylesValues.colors.text}
             display={withDisplay ? { base: "none", sm: "table-cell"} : undefined}
             colSpan={withColSpan ? 3 : undefined}
             paddingX={0}

@@ -33,8 +33,10 @@ export const TableRow: React.FC<TableRowProps<any>> = ({
         setInputValue(value) 
     }
 
-    const calculateTotal = (gr: number, defaultValue: number) => {        
-        return (defaultValue * gr) / 100
+    const calculateTotal = (gr: number, defaultValue: number) => {  
+        const result = (defaultValue * gr) / 100
+              
+        return result
     }   
     
     useEffect(()=> {
@@ -47,13 +49,13 @@ export const TableRow: React.FC<TableRowProps<any>> = ({
             <Td p={1}>
                 {alimento.name}
             </Td>
-            <TdCustom withDisplay={true} maxWidth={true}>
+            <TdCustom withDisplay={true} maxWidth={true} isYellow={false}>
                 {alimento.HCPer100g === 0 ? "-" : alimento.HCPer100g}
             </TdCustom>
-            <TdCustom withDisplay={true} maxWidth={true}>
+            <TdCustom withDisplay={true} maxWidth={true} isYellow={false}>
                 {alimento.ProteinPer100g === 0 ? "-" : alimento.ProteinPer100g}
             </TdCustom>
-            <TdCustom withDisplay={true} maxWidth={true}>
+            <TdCustom withDisplay={true} maxWidth={true} isYellow={false}>
                 {alimento.GrPer100g === 0 ? "-" : alimento.GrPer100g}
             </TdCustom>
             <Td maxW={{base: "50px", md: "60px"}} p={2}>
@@ -76,13 +78,13 @@ export const TableRow: React.FC<TableRowProps<any>> = ({
                     }}
                 />
             </Td>
-            <TdCustom withDisplay={false} maxWidth={true}>
+            <TdCustom withDisplay={false} maxWidth={true} isYellow={true}>
                 {isNaN(calculateTotal(inputValue, alimento.HCPer100g)) || alimento.HCPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.HCPer100g).toFixed(1)}
             </TdCustom>
-            <TdCustom withDisplay={false} maxWidth={true}>
+            <TdCustom withDisplay={false} maxWidth={true} isYellow={true}>
                 {isNaN(calculateTotal(inputValue, alimento.ProteinPer100g)) || alimento.ProteinPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.ProteinPer100g).toFixed(1)}
             </TdCustom>
-            <TdCustom withDisplay={false} maxWidth={true}>
+            <TdCustom withDisplay={false} maxWidth={true} isYellow={true}>
                 {isNaN(calculateTotal(inputValue, alimento.GrPer100g)) || alimento.GrPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.GrPer100g).toFixed(1)}
             </TdCustom>
         </Tr>

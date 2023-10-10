@@ -12,7 +12,6 @@ import stylesValues from "../../../stylesValues";
 import { TableDesarrolladaContainer } from "./TableContainer";
 import { TableRow } from "./TableRow";
 import { ThCustom } from "./ThCustom";
-import { TdCustom } from "./TdCustom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { formulaDesarrolladaFunction } from "../../../data/nutritionalFormulas";
@@ -34,6 +33,8 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
     const onSubmit: SubmitHandler<FieldValues> = () => {
         const quantites = [totalHC, totalProtein, totalGr]
         setResult(formulaDesarrolladaFunction(quantites));
+        console.log(formulaDesarrolladaFunction(quantites));
+
     }
 
     const onReset = () => {
@@ -66,25 +67,25 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
 
         
     return (
-        <TableDesarrolladaContainer >
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <TableDesarrolladaContainer >
                 <Table width={"100%"} variant="simple" size={"sm"}>
                     <Thead bg={stylesValues.colors.secondary}>
                         <Tr>
                             <Th></Th>
-                            <ThCustom withDisplay={true} withColSpan={true}>C/100 gr de alimento</ThCustom>
+                            <ThCustom withDisplay={true} withColSpan={true} isYellow={false}>C/100 gr de alimento</ThCustom>
                             <Th></Th>
-                            <ThCustom withDisplay={false} withColSpan={true}>Segun cantidad ingresada</ThCustom>
+                            <ThCustom withDisplay={false} withColSpan={true} isYellow={false}>Segun cantidad ingresada</ThCustom>
                         </Tr>
                         <Tr>
-                            <ThCustom withDisplay={false} withColSpan={false}>Alimentos</ThCustom>
-                            <ThCustom withDisplay={true} withColSpan={false}>HC</ThCustom>
-                            <ThCustom withDisplay={true} withColSpan={false}>P</ThCustom>
-                            <ThCustom withDisplay={true} withColSpan={false}>G</ThCustom>
-                            <ThCustom withDisplay={false} withColSpan={false}>Cantidad</ThCustom>
-                            <ThCustom withDisplay={false} withColSpan={false}>HC</ThCustom>
-                            <ThCustom withDisplay={false} withColSpan={false}>P</ThCustom>
-                            <ThCustom withDisplay={false} withColSpan={false}>G</ThCustom>
+                            <ThCustom withDisplay={false} withColSpan={false} isYellow={false}>Alimentos</ThCustom>
+                            <ThCustom withDisplay={true} withColSpan={false} isYellow={false}>HC</ThCustom>
+                            <ThCustom withDisplay={true} withColSpan={false} isYellow={false}>P</ThCustom>
+                            <ThCustom withDisplay={true} withColSpan={false} isYellow={false}>G</ThCustom>
+                            <ThCustom withDisplay={false} withColSpan={false} isYellow={false}>Cantidad</ThCustom>
+                            <ThCustom withDisplay={false} withColSpan={false} isYellow={false}>HC</ThCustom>
+                            <ThCustom withDisplay={false} withColSpan={false} isYellow={false}>P</ThCustom>
+                            <ThCustom withDisplay={false} withColSpan={false} isYellow={false}>G</ThCustom>
                         </Tr>
                     </Thead>
                     <Tbody>
@@ -97,34 +98,28 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                                     updateTotals={updateTotals}
                                 />)
                         )}
-                        <Tr>
-                            <TdCustom withDisplay={false} maxWidth={true}>TOTAL (gr)</TdCustom>
-                            <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
-                            <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
-                            <TdCustom withDisplay={true} maxWidth={true}> </TdCustom>
-                            <TdCustom withDisplay={false} maxWidth={true}>{totalCantidad === 0 || isNaN(totalCantidad) ? "-" : totalCantidad.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS GRAMOS INGRESADOS POR EL USUARIO */}
-                            <TdCustom withDisplay={false} maxWidth={true}>{totalHC === 0 || isNaN(totalHC) ? "-" : totalHC.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS HC SEGUN LO INGRESADO POR EL USUARIO */}
-                            <TdCustom withDisplay={false} maxWidth={true}>{totalProtein === 0 || isNaN(totalProtein) ? "-" : totalProtein.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS P SEGUN LO INGRESADO POR EL USUARIO */}
-                            <TdCustom withDisplay={false} maxWidth={true}>{totalGr === 0 || isNaN(totalGr) ? "-" : totalGr.toFixed(1)}</TdCustom> {/* EL TOTAL DE LOS G SEGUN LO INGRESADO POR EL USUARIO */}
-                        </Tr>
                     </Tbody>
                     <Tfoot>
                         <Tr>
-                            <ThCustom withColSpan={false} withDisplay={false}>Total (kcal)</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={true}> </ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={true}> </ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={true}> </ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false}>{}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false}>{(totalHC*4).toFixed(1) || "-"}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false}>{(totalProtein*4).toFixed(1) || "-"}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false}>{(totalGr*4).toFixed(1) || "-"}</ThCustom>
-
-
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>Total (gr)</ThCustom>
+                            <ThCustom withColSpan={true} withDisplay={true} isYellow={true}>.</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalCantidad === 0 || isNaN(totalCantidad) ? "-" : totalCantidad.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalHC === 0 || isNaN(totalHC) ? "-" : totalHC.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalProtein === 0 || isNaN(totalProtein) ? "-" : totalProtein.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalGr === 0 || isNaN(totalGr) ? "-" : totalGr.toFixed(1)}</ThCustom>
+                        </Tr>
+                        <Tr>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>Total (kcal)</ThCustom>
+                            <ThCustom withColSpan={true} withDisplay={true} isYellow={true}>.</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>.</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{(totalHC*4).toFixed(1) || "-"}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{(totalProtein*4).toFixed(1) || "-"}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{(totalGr*9).toFixed(1) || "-"}</ThCustom>
                         </Tr>
                     </Tfoot>
                 </Table>
-                <ButtonsPack resetFunction={onReset} result={result} />
-            </form>
-        </TableDesarrolladaContainer>
+            </TableDesarrolladaContainer>
+            <ButtonsPack resetFunction={onReset} result={result} />
+        </form>
     );
   };
