@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
     Tr,
     Td,
-    Input,
+    Input, 
+    FormControl
   } from "@chakra-ui/react";
 import { TypeAliment } from "../../../data/aliments";
 import stylesValues from "../../../stylesValues";
@@ -59,24 +60,26 @@ export const TableRow: React.FC<TableRowProps<any>> = ({
                 {alimento.GrPer100g === 0 ? "-" : alimento.GrPer100g}
             </TdCustom>
             <Td maxW={{base: "50px", md: "60px"}} p={2}>
-                <Input 
-                    type="number"
-                    {...register(alimento.name)}
-                    bg={stylesValues.colors.text}
-                    color={stylesValues.colors.primary}
-                    max={2000}
-                    p={1}
-                    onChange={(e) => onChange(e)}
-                    textAlign={"center"}
-                    ref={(el) => {
-                        inputRef(el);
-                        if (el) {
-                          el.dataset.hcper100g = String((alimento.HCPer100g) / 100);
-                          el.dataset.proteinper100g = String((alimento.ProteinPer100g) / 100);
-                          el.dataset.grper100g = String((alimento.GrPer100g) / 100);
-                        }
-                    }}
-                />
+                <FormControl>
+                    <Input 
+                        type="number"
+                        {...register(alimento.name)}
+                        bg={stylesValues.colors.text}
+                        color={stylesValues.colors.primary}
+                        max={2000}
+                        p={1}
+                        onChange={(e) => onChange(e)}
+                        textAlign={"center"}
+                        ref={(el) => {
+                            inputRef(el);
+                            if (el) {
+                            el.dataset.hcper100g = String((alimento.HCPer100g) / 100);
+                            el.dataset.proteinper100g = String((alimento.ProteinPer100g) / 100);
+                            el.dataset.grper100g = String((alimento.GrPer100g) / 100);
+                            }
+                        }}
+                    />
+                </FormControl>
             </Td>
             <TdCustom withDisplay={false} maxWidth={true} isYellow={true}>
                 {isNaN(calculateTotal(inputValue, alimento.HCPer100g)) || alimento.HCPer100g === 0 ? "-" : calculateTotal(inputValue, alimento.HCPer100g).toFixed(1)}

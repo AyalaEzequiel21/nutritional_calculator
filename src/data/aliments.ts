@@ -153,7 +153,7 @@ export type TypeAliment = {
 }
 
 export type TypePercentages = {
-    Carbohidratos: string,
-    Proteinas: string,
-    Grasas: string
+    HC: number,
+    P: number,
+    G: number
 }
