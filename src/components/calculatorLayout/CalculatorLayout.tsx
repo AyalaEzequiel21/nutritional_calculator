@@ -73,7 +73,7 @@ export const CalculatorLayout: React.FC<CalculatorLayoutProps> = ({
                 <ButtonsPack result={partialResult} resetFunction={resetFunction} />
             </form>
             {isCalculating && <Spinner/>}
-            {partialResult !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={partialResult} />}
+            {partialResult !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={partialResult} withPercentage={false}/>}
         </Box>  
     )
 }

@@ -6,6 +6,9 @@ import {
   Tr,
   Th,
   Tfoot,
+  UseDisclosureReturn, 
+  useDisclosure, 
+  Spinner
 } from "@chakra-ui/react";
 import { ALIMENTS } from "../../../data/aliments";
 import stylesValues from "../../../stylesValues";
@@ -15,6 +18,7 @@ import { ThCustom } from "./ThCustom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { formulaDesarrolladaFunction } from "../../../data/nutritionalFormulas";
+import { CardResult } from "../../../components/cardResult/CardResult";
 
 interface TableFormDesarProps {}
 
@@ -28,13 +32,36 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
     const [totalGr, setTotalGr] = useState<number>(0);
     const [totalCantidad, setTotalCantidad] = useState<number>(0);
 
-    const [result, setResult] = useState<string|undefined>(undefined)
+    const [finalResult, setFinalResult] = useState<string|undefined>(undefined)
+    const [isCalculating, setIsCalculating] = useState<boolean>(false)
+
+
+    const tag = "Resultado"
+
+    const { isOpen, onToggle } : UseDisclosureReturn = useDisclosure()
+
+    // const calcularPorcentaje = (valor: number, total: number) => {
+    //     if (total === 0) {
+    //       return 0
+    //     }
+    //     return (valor / total) * 100;
+    //   }
+
 
     const onSubmit: SubmitHandler<FieldValues> = () => {
         const quantites = [totalHC, totalProtein, totalGr]
-        setResult(formulaDesarrolladaFunction(quantites));
+        setFinalResult(formulaDesarrolladaFunction(quantites));
         console.log(formulaDesarrolladaFunction(quantites));
-
+        if(!isOpen){
+            setIsCalculating(true)
+                const resultForm = formulaDesarrolladaFunction(quantites)
+                if(resultForm !== undefined && !isNaN(parseFloat(resultForm))){
+                    setFinalResult(`${resultForm} Kcal`)
+                    onToggle()
+                    setIsCalculating(false)
+                }
+                setIsCalculating(false)
+        }
     }
 
     const onReset = () => {
@@ -67,7 +94,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
 
         
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <TableDesarrolladaContainer >
                 <Table width={"100%"} variant="simple" size={"sm"}>
                     <Thead bg={stylesValues.colors.secondary}>
@@ -119,7 +146,9 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                     </Tfoot>
                 </Table>
             </TableDesarrolladaContainer>
-            <ButtonsPack resetFunction={onReset} result={result} />
+            <ButtonsPack resetFunction={onReset} result={finalResult} />
+            {isCalculating && <Spinner/>}
+            {finalResult !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={finalResult} withPercentage={true}/>}
         </form>
     );
   };
