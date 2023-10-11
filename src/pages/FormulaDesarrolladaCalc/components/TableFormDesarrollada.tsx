@@ -64,7 +64,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
     const onSubmit: SubmitHandler<FieldValues> = () => {
         const quantites = [totalHC, totalProtein, totalGr]
         const kcal = formulaDesarrolladaFunction(quantites)
-        if(kcal !== undefined && !isOpen){
+        if(kcal !== undefined && parseFloat(kcal) !== 0 && !isOpen){
             setIsCalculating(true)
             setKcalTotal(parseFloat(kcal));
             onToggle()
