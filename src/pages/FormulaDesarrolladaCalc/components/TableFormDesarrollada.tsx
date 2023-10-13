@@ -20,6 +20,7 @@ import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { formulaDesarrolladaFunction } from "../../../data/nutritionalFormulas";
 import { CardResult } from "../../../components/cardResult/CardResult";
 import { useGlobalContext } from "../../../context/useGlobalContext";
+import { calcularPorcentaje } from "../../../utils/utils";
 
 interface TableFormDesarProps {}
 
@@ -29,38 +30,38 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
     const { isOpen, onToggle } : UseDisclosureReturn = useDisclosure()
     const inputRefs = useRef<Array<HTMLInputElement | null>>( Array(ALIMENTS.length).fill(null) )
 
+    // controlaremos el total de carbohidratos
     const [totalHC, setTotalHC] = useState<number>(0);
+        // controlaremos el total de proteinas
     const [totalProtein, setTotalProtein] = useState<number>(0);
+        // controlaremos el total de grasas
     const [totalGr, setTotalGr] = useState<number>(0);
+        // controlaremos el total de gramos ingresados
     const [totalCantidad, setTotalCantidad] = useState<number>(0);
 
+    // aqui se pasara el total de carbohidratos a kilocalorias
     const [totalHCToKcal, setTotalHCToKcal] = useState<number>(totalHC * 4);
+    // aqui se pasara el total de proteinas a kilocalorias
     const [totalProteinToKcal, setTotalProteinToKcal] = useState<number>(totalProtein * 4);
-    const [totalGrToKcal, setTotalGrToKcal] = useState<number>(totalGr * 4);
+    // aqui se pasara el total de grasas a kilocalorias
+    const [totalGrToKcal, setTotalGrToKcal] = useState<number>(totalGr * 9);
 
+    // aqui manejaremos el total de kcal 
     const [kcalTotal, setKcalTotal] = useState<number|undefined>(undefined)
+    // este estado lo utilizaremos para manejar el spinner cuando este calculando
     const [isCalculating, setIsCalculating] = useState<boolean>(false)
 
+    // aqui se almacenaran que porcentajes representan los totales 
     const [percentagesKcal, setPercentagesKcal] = useState<TypePercentages>({
         HC: 0,
         P: 0,
         G: 0
     })
 
+    // los results del contexto
     const { setResults } = useGlobalContext()
 
-
-    const tag = "Resultado"
-
-
-    const calcularPorcentaje = (valor: number, total: number) => {
-        if (total === 0) {
-          return 0
-        }
-        return (valor / total) * 100;
-      }
-
-
+    // funcion onSubmit para el fromulario
     const onSubmit: SubmitHandler<FieldValues> = () => {
         const quantites = [totalHC, totalProtein, totalGr]
         const kcal = formulaDesarrolladaFunction(quantites)
@@ -72,7 +73,11 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
         }
     }
 
+
+    // funcion para resetear los valores calculados
     const onReset = () => {
+        onToggle()
+        // resetInputValues(inputRefs)
         setTotalCantidad(0)
         setKcalTotal(undefined)
         setTotalHC(0)
@@ -88,6 +93,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
         reset()
     }
 
+    // funcion que se le pasara al componente TableRow para actualizar cada valor que se ingrese
     const updateTotals = () => {
         let hcTotal = 0;
         let proteinTotal = 0;
@@ -112,6 +118,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
         setTotalCantidad(cantTotal);        
       };
 
+      // este useEffect estara pendiente a kcalTotal, que sera modificada en el onSubmit
       useEffect(() => {
         if(kcalTotal !== undefined){
             const porcentajeHC = calcularPorcentaje(totalHCToKcal, kcalTotal)
@@ -136,10 +143,11 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
       }, [kcalTotal])
 
 
+      // este useEffect estara pendiente a los totales para poder actualizar los porcentajes
       useEffect(() => {
         setTotalHCToKcal(totalHC * 4);
         setTotalProteinToKcal(totalProtein * 4);
-        setTotalGrToKcal(totalGr * 4);
+        setTotalGrToKcal(totalGr * 9);
       }, [totalHC, totalProtein, totalGr]);
         
     return (
@@ -189,7 +197,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                             <ThCustom withColSpan={true} withDisplay={true} isYellow={true}>.</ThCustom>
                             <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>.</ThCustom>
                             <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalHCToKcal === 0 || isNaN(totalHCToKcal)?  "-" : totalHCToKcal.toFixed(1)}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalProtein === 0 || isNaN(totalProtein)?  "-" : totalProtein.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalProteinToKcal === 0 || isNaN(totalProteinToKcal)?  "-" : totalProteinToKcal.toFixed(1)}</ThCustom>
                             <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalGrToKcal === 0 || isNaN(totalGrToKcal)?  "-" : totalGrToKcal.toFixed(1)}</ThCustom>
                         </Tr>
                     </Tfoot>
@@ -197,7 +205,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
             </TableDesarrolladaContainer>
             <ButtonsPack resetFunction={onReset} result={(kcalTotal)?.toString()} />
             {isCalculating && <Spinner/>}
-            {kcalTotal !== undefined  && <CardResult isOpen={isOpen} tag={tag} value={`${kcalTotal} kcal`} withPercentage={true} percentages={percentagesKcal}/>}
+            {kcalTotal !== undefined  && <CardResult isOpen={isOpen} tag={"Resultado"} value={`${kcalTotal} kcal`} withPercentage={true} percentages={percentagesKcal}/>}
         </form>
     );
   };

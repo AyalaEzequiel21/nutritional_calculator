@@ -32,7 +32,7 @@ export const CardResult: React.FC<CardResultProps> = ({tag, value, isOpen, withP
                     <Box display={"flex"} alignItems={"center"} color={stylesValues.colors.text} justifyContent={"space-around"}>
                         {keysObject.map((key: string) => (
                             <Flex key={key} flexDirection={"column"} textAlign={"center"} justifyContent={"center"} alignItems={"center"}>
-                                <Text as={"b"}>{key}</Text> 
+                                <Text as={"b"} color={stylesValues.colors.decorative}>{key}</Text> 
                                 <Heading as={"h5"} size='md'>{`${(percentages[key as keyof TypePercentages]).toFixed(2)} %`}</Heading>
                             </Flex>
                         ))}
