@@ -1,12 +1,9 @@
 import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
 import { ecuacionHarrisBenedict } from "../../../data/nutritionalFormulas";
-import { EGenero } from "../../../enums/EGenero";
-import { EGradoActividad } from "../../../enums/EGradoActividad";
-import { CustomInput } from "../../../components/customInput/CustomInput";
-import { CustomSelect } from "../../../components/customSelect/CustomSelect";
+import { CustomInput, CustomSelect, CalculatorLayout } from "../../../components";
+import { EGenero, EGradoActividad } from "../../../enums";
 
 interface CalcEcuHarrisBenedictProps {}
 

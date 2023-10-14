@@ -1,12 +1,11 @@
 import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { CustomInput } from "../../../components/customInput/CustomInput";
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
 import { getPIC } from "../../../data/nutritionalFormulas";
+import { CustomInput, CalculatorLayout } from "../../../components";
 
 
-export interface CalculatorPesoIdealCorregidoProps{}
+interface CalculatorPesoIdealCorregidoProps{}
 
 export const CalculatorPesoIdealCorregido: React.FC<CalculatorPesoIdealCorregidoProps> = () => {
    

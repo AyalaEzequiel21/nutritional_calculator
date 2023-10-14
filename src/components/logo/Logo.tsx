@@ -3,9 +3,7 @@ import { Image, Box, Link } from '@chakra-ui/react'
 import imagePalta from '../../assets/palta.avif'
 import { Link as RouterLink }  from "react-router-dom";
 
-export interface LogoProps {
-
-}
+interface LogoProps {}
 
 export const Logo: React.FC<LogoProps> = () => {
 

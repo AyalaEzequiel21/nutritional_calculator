@@ -1,9 +1,7 @@
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout"
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { getPPU } from "../../../data/nutritionalFormulas";
-import { CustomInput } from "../../../components/customInput/CustomInput";
-
+import { CalculatorLayout, CustomInput } from "../../../components";
 
 interface CalculatorPPUProps {}
 

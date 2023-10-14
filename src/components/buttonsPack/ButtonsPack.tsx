@@ -5,7 +5,7 @@ import {
 import { Link } from "react-router-dom";
 
 
-export interface ButtonsPackProps {
+interface ButtonsPackProps {
     resetFunction: ()=> void
     result: string | undefined
 }

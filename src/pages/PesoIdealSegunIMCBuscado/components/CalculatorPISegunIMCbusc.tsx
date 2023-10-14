@@ -1,8 +1,7 @@
 import { z } from "zod"
 import { useForm } from "react-hook-form";
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
 import { getPesoIdealSegunIMCBuscado } from "../../../data/nutritionalFormulas";
-import { CustomInput } from "../../../components/customInput/CustomInput";
+import { CalculatorLayout, CustomInput } from "../../../components";
 
 interface CalcPISegunImcProps {}
 

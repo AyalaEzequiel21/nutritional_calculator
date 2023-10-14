@@ -1,11 +1,9 @@
 import React from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
-import { CustomInput } from "../../../components/customInput/CustomInput";
-import { CustomSelect } from "../../../components/customSelect/CustomSelect";
 import { EGenero } from "../../../enums/EGenero";
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
 import { getHamwi } from "../../../data/nutritionalFormulas";
+import { CustomInput, CustomSelect, CalculatorLayout } from "../../../components";
 
 
 interface CalcHamwiProps {}

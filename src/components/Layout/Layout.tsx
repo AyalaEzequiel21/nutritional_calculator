@@ -3,7 +3,7 @@ import stylesValues from '../../stylesValues'
 import { Logo } from '../logo/Logo'
 
 
-export interface LayoutProp {
+interface LayoutProp {
     title: string
     children: React.ReactNode
 }

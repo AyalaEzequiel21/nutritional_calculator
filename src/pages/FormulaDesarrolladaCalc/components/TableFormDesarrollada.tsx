@@ -12,15 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { ALIMENTS, TypePercentages } from "../../../data/aliments";
 import stylesValues from "../../../stylesValues";
-import { TableDesarrolladaContainer } from "./TableContainer";
-import { TableRow } from "./TableRow";
-import { ThCustom } from "./ThCustom";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { ButtonsPack } from "../../../components/buttonsPack/ButtonsPack";
 import { formulaDesarrolladaFunction } from "../../../data/nutritionalFormulas";
-import { CardResult } from "../../../components/cardResult/CardResult";
 import { useGlobalContext } from "../../../context/useGlobalContext";
 import { calcularPorcentaje } from "../../../utils/utils";
+import { CardResult, ButtonsPack } from "../../../components";
+import { TableRow, ThCustom, TableDesarrolladaContainer } from ".";
 
 interface TableFormDesarProps {}
 
@@ -29,41 +26,38 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
     const {register, handleSubmit, reset} = useForm()
     const { isOpen, onToggle } : UseDisclosureReturn = useDisclosure()
     const inputRefs = useRef<Array<HTMLInputElement | null>>( Array(ALIMENTS.length).fill(null) )
+    //cantidades totales de HC, Proteina, Grasa y Gramos
+    const [cantidades, setCantidades] = useState({
+        totalHC: 0,
+        totalProteina: 0,
+        totalGrasa: 0,
+        totalGramos: 0
+    })
 
-    // controlaremos el total de carbohidratos
-    const [totalHC, setTotalHC] = useState<number>(0);
-        // controlaremos el total de proteinas
-    const [totalProtein, setTotalProtein] = useState<number>(0);
-        // controlaremos el total de grasas
-    const [totalGr, setTotalGr] = useState<number>(0);
-        // controlaremos el total de gramos ingresados
-    const [totalCantidad, setTotalCantidad] = useState<number>(0);
-
-    // aqui se pasara el total de carbohidratos a kilocalorias
-    const [totalHCToKcal, setTotalHCToKcal] = useState<number>(totalHC * 4);
-    // aqui se pasara el total de proteinas a kilocalorias
-    const [totalProteinToKcal, setTotalProteinToKcal] = useState<number>(totalProtein * 4);
-    // aqui se pasara el total de grasas a kilocalorias
-    const [totalGrToKcal, setTotalGrToKcal] = useState<number>(totalGr * 9);
+    //cantidades totales pasadas a kcal
+    const [cantidadesKcal, setCantidadesKcal] = useState({
+        totalHCKcal: cantidades.totalHC * 4,
+        totalProteinaKcal: cantidades.totalProteina * 4,
+        totalGrasaKcal: cantidades.totalGrasa * 9
+    })
 
     // aqui manejaremos el total de kcal 
     const [kcalTotal, setKcalTotal] = useState<number|undefined>(undefined)
-    // este estado lo utilizaremos para manejar el spinner cuando este calculando
-    const [isCalculating, setIsCalculating] = useState<boolean>(false)
-
     // aqui se almacenaran que porcentajes representan los totales 
     const [percentagesKcal, setPercentagesKcal] = useState<TypePercentages>({
         HC: 0,
         P: 0,
         G: 0
     })
+    // este estado lo utilizaremos para manejar el spinner cuando este calculando
+    const [isCalculating, setIsCalculating] = useState<boolean>(false)
 
     // los results del contexto
     const { setResults } = useGlobalContext()
 
     // funcion onSubmit para el fromulario
     const onSubmit: SubmitHandler<FieldValues> = () => {
-        const quantites = [totalHC, totalProtein, totalGr]
+        const quantites = [cantidades.totalHC, cantidades.totalProteina, cantidades.totalGramos]
         const kcal = formulaDesarrolladaFunction(quantites)
         if(kcal !== undefined && parseFloat(kcal) !== 0 && !isOpen){
             setIsCalculating(true)
@@ -72,17 +66,25 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
             setIsCalculating(false)
         }
     }
-
+    
+    const resetInputValues = () => {
+        inputRefs.current.forEach((inputRef) => {
+            if (inputRef) {
+                inputRef.value = '';
+            }
+        });
+    };
 
     // funcion para resetear los valores calculados
     const onReset = () => {
         onToggle()
-        // resetInputValues(inputRefs)
-        setTotalCantidad(0)
         setKcalTotal(undefined)
-        setTotalHC(0)
-        setTotalProtein(0)
-        setTotalGr(0)
+        setCantidades({
+            totalHC: 0,
+            totalProteina: 0,
+            totalGrasa: 0,
+            totalGramos: 0
+        })
         setResults((prevResults) => ({
             ...prevResults,
             "Kcal totales": "",
@@ -90,6 +92,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
             "Proteinas": "",
             "Grasas": "",
           }))
+        resetInputValues()
         reset()
     }
 
@@ -112,18 +115,20 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
           }
         });
     
-        setTotalHC(hcTotal);
-        setTotalProtein(proteinTotal);
-        setTotalGr(grTotal);
-        setTotalCantidad(cantTotal);        
+        setCantidades({
+            totalHC: hcTotal,
+            totalProteina: proteinTotal,
+            totalGrasa: grTotal,
+            totalGramos: cantTotal
+        })    
       };
 
       // este useEffect estara pendiente a kcalTotal, que sera modificada en el onSubmit
       useEffect(() => {
         if(kcalTotal !== undefined){
-            const porcentajeHC = calcularPorcentaje(totalHCToKcal, kcalTotal)
-            const porcentajeP = calcularPorcentaje(totalProteinToKcal, kcalTotal)
-            const porcentajeG = calcularPorcentaje(totalGrToKcal, kcalTotal)
+            const porcentajeHC = calcularPorcentaje(cantidadesKcal.totalHCKcal, kcalTotal)
+            const porcentajeP = calcularPorcentaje(cantidadesKcal.totalProteinaKcal, kcalTotal)
+            const porcentajeG = calcularPorcentaje(cantidadesKcal.totalGrasaKcal, kcalTotal)
 
 
             setPercentagesKcal({
@@ -145,10 +150,12 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
 
       // este useEffect estara pendiente a los totales para poder actualizar los porcentajes
       useEffect(() => {
-        setTotalHCToKcal(totalHC * 4);
-        setTotalProteinToKcal(totalProtein * 4);
-        setTotalGrToKcal(totalGr * 9);
-      }, [totalHC, totalProtein, totalGr]);
+        setCantidadesKcal({
+            totalHCKcal: cantidades.totalHC * 4,
+            totalProteinaKcal: cantidades.totalProteina * 4,
+            totalGrasaKcal: cantidades.totalProteina * 9
+        })
+      }, [cantidades]);
         
     return (
         <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
@@ -187,18 +194,18 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
                         <Tr>
                             <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>Total (gr)</ThCustom>
                             <ThCustom withColSpan={true} withDisplay={true} isYellow={true}>.</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalCantidad === 0 || isNaN(totalCantidad) ? "-" : totalCantidad.toFixed(1)}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalHC === 0 || isNaN(totalHC) ? "-" : totalHC.toFixed(1)}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalProtein === 0 || isNaN(totalProtein) ? "-" : totalProtein.toFixed(1)}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalGr === 0 || isNaN(totalGr) ? "-" : totalGr.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidades.totalGramos === 0 || isNaN(cantidades.totalGramos) ? "-" : cantidades.totalGramos.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidades.totalHC === 0 || isNaN(cantidades.totalHC) ? "-" : cantidades.totalHC.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidades.totalProteina === 0 || isNaN(cantidades.totalProteina) ? "-" : cantidades.totalProteina.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidades.totalGrasa === 0 || isNaN(cantidades.totalGrasa) ? "-" : cantidades.totalGrasa.toFixed(1)}</ThCustom>
                         </Tr>
                         <Tr>
                             <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>Total (kcal)</ThCustom>
                             <ThCustom withColSpan={true} withDisplay={true} isYellow={true}>.</ThCustom>
                             <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>.</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalHCToKcal === 0 || isNaN(totalHCToKcal)?  "-" : totalHCToKcal.toFixed(1)}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalProteinToKcal === 0 || isNaN(totalProteinToKcal)?  "-" : totalProteinToKcal.toFixed(1)}</ThCustom>
-                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{totalGrToKcal === 0 || isNaN(totalGrToKcal)?  "-" : totalGrToKcal.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidadesKcal.totalHCKcal === 0 || isNaN(cantidadesKcal.totalHCKcal)?  "-" : cantidadesKcal.totalHCKcal.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidadesKcal.totalProteinaKcal === 0 || isNaN(cantidadesKcal.totalProteinaKcal)?  "-" : cantidadesKcal.totalProteinaKcal.toFixed(1)}</ThCustom>
+                            <ThCustom withColSpan={false} withDisplay={false} isYellow={true}>{cantidadesKcal.totalGrasaKcal === 0 || isNaN(cantidadesKcal.totalGrasaKcal)?  "-" : cantidadesKcal.totalGrasaKcal.toFixed(1)}</ThCustom>
                         </Tr>
                     </Tfoot>
                 </Table>

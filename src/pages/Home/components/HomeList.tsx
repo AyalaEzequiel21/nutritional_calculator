@@ -1,10 +1,6 @@
-import { BoXContainer } from "../../../components/boxContainer/BoxContainer";
-import { ButtonLink } from "../../../components/buttonLink/ButtonLink";
+import { BoXContainer, ButtonLink } from "../../../components";
 
-
-export interface HomeListProps {
-
-}
+interface HomeListProps {}
 
 export const HomeList: React.FC<HomeListProps> = () => {
     return (
@@ -16,7 +12,7 @@ export const HomeList: React.FC<HomeListProps> = () => {
         />
         <ButtonLink 
           direction="/hamwi"
-          label="Formula de Hamwi"
+          label="Ecuación de Hamwi"
           key={"hamwi"}
         />
         <ButtonLink 

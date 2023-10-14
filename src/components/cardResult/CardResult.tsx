@@ -10,7 +10,7 @@ import {
 import stylesValues from "../../stylesValues";
 import { TypePercentages } from "../../data/aliments";
 
-export interface CardResultProps {
+interface CardResultProps {
     tag: string
     value: string | undefined
     isOpen: boolean,

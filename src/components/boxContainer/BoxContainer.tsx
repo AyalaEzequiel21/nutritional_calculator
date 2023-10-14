@@ -3,7 +3,7 @@ import {Box, StackDivider, Stack} from '@chakra-ui/react'
 import stylesValues from "../../stylesValues"
 
 
-export interface BoxContainerProps {
+interface BoxContainerProps {
     children: React.ReactNode
 }
 

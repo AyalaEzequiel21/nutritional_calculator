@@ -2,9 +2,7 @@ import { HomeList } from './components/HomeList'
 import { Layout } from '../../components/Layout/Layout'
 
 
-export interface HomeProps {
-
-}
+interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = () => {
     return (

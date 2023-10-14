@@ -1,7 +1,7 @@
 import { Layout } from "../../components/Layout/Layout"
 import { CalculatorIMC } from "./components/CalculatorIMC"
 
-export interface IMCCalcProps {}
+interface IMCCalcProps {}
 
 export const IMCCalcPage: React.FC<IMCCalcProps> = () => {
     return (

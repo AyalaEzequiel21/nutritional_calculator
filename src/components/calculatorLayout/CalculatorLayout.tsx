@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "../../context/useGlobalContext";
 import { Box, Spinner, UseDisclosureReturn, useDisclosure } from "@chakra-ui/react";
-import { BoXContainer } from "../boxContainer/BoxContainer";
-import { ButtonsPack } from "../buttonsPack/ButtonsPack";
-import { CardResult } from "../cardResult/CardResult";
 import { SubmitHandler, FieldValues, UseFormHandleSubmit} from "react-hook-form";
+import { CardResult, BoXContainer, ButtonsPack } from "..";
 
 
 

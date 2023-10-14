@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from "../../components/Layout/Layout";
 import { TableFormDesarrollada } from "./components/TableFormDesarrollada";
 
-export interface FormDesProp {
+interface FormDesProp {
 
 }
 

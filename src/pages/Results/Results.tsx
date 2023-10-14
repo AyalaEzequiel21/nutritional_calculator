@@ -4,6 +4,7 @@ import { ResultsTable } from "./components/ResultsTable";
 import { useGlobalContext } from "../../context/useGlobalContext";
 import { Button, ButtonGroup, Link } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+
 interface ResultsProps {}
 
 export const ResultsPage: React.FC<ResultsProps> = () => {

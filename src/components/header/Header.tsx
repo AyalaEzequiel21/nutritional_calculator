@@ -1,7 +1,7 @@
 import { Box, Text } from "@chakra-ui/react"
 import stylesValues from "../../stylesValues"
 
-export interface HeaderProps {}
+interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
     return (

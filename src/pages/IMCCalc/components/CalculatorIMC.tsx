@@ -1,11 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CustomInput } from "../../../components/customInput/CustomInput";
-import { CalculatorLayout } from "../../../components/calculatorLayout/CalculatorLayout";
+import { CustomInput, CalculatorLayout } from "../../../components";
 import { getIMC } from "../../../data/nutritionalFormulas";
 
-export interface CalculatorIMCProps {}
+interface CalculatorIMCProps {}
 
 export const CalculatorIMC: React.FC<CalculatorIMCProps> = () => {
 
