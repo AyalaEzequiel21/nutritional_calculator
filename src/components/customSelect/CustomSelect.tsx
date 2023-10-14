@@ -32,7 +32,7 @@ export const CustomSelect: React.FC<CustomSelectProps<any, Record<string, string
     // console.log(Object.values(enumOptions));
     
     return (
-        <FormControl isInvalid={!!error} maxW={"300px"}>
+        <FormControl isInvalid={!!error} maxW={"300px"} isRequired>
             <FormLabel>{label}</FormLabel>
                 <Select placeholder={placeholder} {...register(name, registerOptions)} bg={stylesValues.colors.text} color={stylesValues.colors.primary}>
                     {options.map(option => (

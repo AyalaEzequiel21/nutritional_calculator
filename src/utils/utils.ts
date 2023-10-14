@@ -36,3 +36,16 @@ export const calcularPorcentaje = (valor: number, total: number) => {
       }
     });
   };
+
+  export const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Obtiene la tecla presionada
+    const key = e.key;
+
+    // Permite solo números positivos, el punto decimal (.) y la tecla de retroceso (borrar).
+    if (
+      (!/^\d$/.test(key) && key !== "." && key !== "Backspace") ||
+      (key === "." && e.currentTarget.value.includes(".")) // Evita más de un punto decimal
+    ) {
+      e.preventDefault();
+    }
+  };

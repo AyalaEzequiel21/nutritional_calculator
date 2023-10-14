@@ -6,6 +6,7 @@ import {
   } from "@chakra-ui/react";
   import { UseFormRegister, RegisterOptions, FieldValues } from "react-hook-form";
 import stylesValues from "../../stylesValues";
+import { handleKeyPress } from "../../utils/utils";
   
   interface CustomInputProps<T extends FieldValues>{
     label: string;
@@ -28,6 +29,7 @@ import stylesValues from "../../stylesValues";
     placeHolder,
     registerOptions,
   }) => {
+
     return (
       <FormControl isInvalid={!!error} maxW={"300px"}>
         <FormLabel>{label}</FormLabel>
@@ -38,6 +40,7 @@ import stylesValues from "../../stylesValues";
              placeholder={placeHolder}
              bg={stylesValues.colors.text}
              color={stylesValues.colors.primary}
+             onKeyDown={handleKeyPress}
              />
         <FormErrorMessage>{error}</FormErrorMessage>
       </FormControl>

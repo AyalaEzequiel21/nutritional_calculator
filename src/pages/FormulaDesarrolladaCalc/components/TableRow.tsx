@@ -9,6 +9,7 @@ import { TypeAliment } from "../../../data/aliments";
 import stylesValues from "../../../stylesValues";
 import { UseFormRegister, FieldValues } from "react-hook-form";
 import { TdCustom } from "./TdCustom";
+import { handleKeyPress } from "../../../utils/utils";
 
 
 
@@ -78,6 +79,7 @@ export const TableRow: React.FC<TableRowProps<any>> = ({
                             el.dataset.grper100g = String((alimento.GrPer100g) / 100);
                             }
                         }}
+                        onKeyDown={handleKeyPress}
                     />
                 </FormControl>
             </Td>
