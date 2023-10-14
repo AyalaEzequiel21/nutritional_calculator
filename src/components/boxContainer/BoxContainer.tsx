@@ -2,7 +2,6 @@ import React from "react"
 import {Box, StackDivider, Stack} from '@chakra-ui/react'
 import stylesValues from "../../stylesValues"
 
-
 interface BoxContainerProps {
     children: React.ReactNode
 }
