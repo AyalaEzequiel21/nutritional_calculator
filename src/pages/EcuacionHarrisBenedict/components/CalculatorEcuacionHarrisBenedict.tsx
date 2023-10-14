@@ -28,7 +28,7 @@ export const CalculatorEcuacionHarrisBenedict: React.FC<CalcEcuHarrisBenedictPro
             handleSubmit={handleSubmit}
             reset={reset}
             patienValues={{} as PatienValuesHarrisBenedict}
-            unit="Kg"
+            unit="Kcal"
         >
             <CustomInput
                 label="Altura (cm)"
