@@ -16,7 +16,7 @@ export const BoXContainer: React.FC<BoxContainerProps> = ({children}) => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            width={["80vw", "400px"]} 
+            width={["85vw", "400px"]} 
             padding={8} 
             borderRadius="md" 
         >
