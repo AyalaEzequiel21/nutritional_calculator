@@ -57,7 +57,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
 
     // funcion onSubmit para el fromulario
     const onSubmit: SubmitHandler<FieldValues> = () => {
-        const quantites = [cantidades.totalHC, cantidades.totalProteina, cantidades.totalGramos]
+        const quantites = [cantidades.totalHC, cantidades.totalProteina, cantidades.totalGrasa]
         const kcal = formulaDesarrolladaFunction(quantites)
         if(kcal !== undefined && parseFloat(kcal) !== 0 && !isOpen){
             setIsCalculating(true)
