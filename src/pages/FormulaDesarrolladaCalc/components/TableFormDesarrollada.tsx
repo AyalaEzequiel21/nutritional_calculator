@@ -153,7 +153,7 @@ export const TableFormDesarrollada: React.FC<TableFormDesarProps> = () => {
         setCantidadesKcal({
             totalHCKcal: cantidades.totalHC * 4,
             totalProteinaKcal: cantidades.totalProteina * 4,
-            totalGrasaKcal: cantidades.totalProteina * 9
+            totalGrasaKcal: cantidades.totalGrasa * 9
         })
       }, [cantidades]);
         
