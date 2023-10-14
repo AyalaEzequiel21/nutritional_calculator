@@ -26,7 +26,7 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
             handleSubmit={handleSubmit}
             reset={reset}
             patienValues={{} as PatienValuesHamwi}
-            unit="Kcal"
+            unit="Kg"
         >
             <CustomInput 
                 label="Altura (cm)"
