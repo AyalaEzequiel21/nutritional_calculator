@@ -1,6 +1,7 @@
 // FORMULA PARA OBTENER EL INDICE DE MASA CORPORAL DE UNA PERSONA, RECIBE PESO ACTUAL(NUMBER) Y ALTURA(NUMBER)
 
 import { EGenero } from "../enums/EGenero"
+import { EGradoActividad } from "../enums/EGradoActividad";
     
 export const getIMC = (data: unknown[]): string | undefined => {
     if (Array.isArray(data) && data.length === 2) {
@@ -93,7 +94,6 @@ export const getPIC = (data: unknown[]): string | undefined => {
   export const formulaDesarrolladaFunction = (data: unknown[]): string | undefined => {
     if (Array.isArray(data) && data.length === 3){
       const [cantidadHC, cantidadP, cantidadG] = data
-      console.log(cantidadHC, cantidadP, cantidadG);
       
       if(typeof cantidadHC === 'number' && typeof cantidadP === 'number' && typeof cantidadG === 'number'){
 
@@ -103,6 +103,72 @@ export const getPIC = (data: unknown[]): string | undefined => {
 
         return (kcal_HC + kcal_P + kcal_G).toFixed(2)
       }
+    }
+    return undefined
+  }
+
+  // FORMULA PARA OBTENER PESO IDEAL CORREGIDO SEGUN IMC BUSCADO, RECIBE ALTURA EN M (NUMBER) Y IMC BUSCADO(NUMBER)
+
+  export const getPesoIdealSegunIMCBuscado = (data: unknown[]) : string | undefined => {
+    if(Array.isArray(data) && data.length === 2){
+      const [altura, imc_buscado] = data
+
+      if(typeof altura === 'string' && typeof imc_buscado === 'string' ){
+        const altura_float = parseFloat(altura)
+        const imcBuscado_float = parseFloat(imc_buscado)
+        const result = imcBuscado_float * (altura_float * altura_float)
+
+        return result.toFixed(2)
+      }
+    }
+    return undefined 
+  }
+
+  // ECUACION DE HARRIS BENEDICT PARA OBTENER UNA ESTIMACION DE LAS NECESIDADES ENERGETICAS
+
+  export const ecuacionHarrisBenedict = (data: unknown[]): string | undefined => {
+    if(Array.isArray(data) && data.length === 5){
+      const [altura, peso_actual, edad, genero, grado_actividad] = data 
+    if (
+        typeof altura === 'string' && 
+        typeof peso_actual === 'string' && 
+        typeof edad === 'string' &&
+        typeof genero === 'string' &&
+        typeof grado_actividad === 'string'
+        ){
+          const altura_float = parseFloat(altura)
+          const peso_actual_float = parseFloat(peso_actual)
+          const edad_float = parseFloat(edad)
+          let result = null
+          
+          const preResult = genero === EGenero.MASCULINO ? 
+              66 + (13.7 * peso_actual_float) + (5 * altura_float) - (6.8 * edad_float)
+              :
+              655 + (9.7 * peso_actual_float) + (1.8 * altura_float) - (4.7 * edad_float)
+          
+          if(grado_actividad === EGradoActividad.MUY_LEVE){
+            result = preResult * 1.3
+          }
+          if(grado_actividad === EGradoActividad.LEVE){
+            genero === EGenero.FEMENINO ? 
+              result = preResult * 1.5
+            :
+              result = preResult * 1.6
+          }
+          if(grado_actividad === EGradoActividad.MODERADA){
+            genero === EGenero.FEMENINO ? 
+            result = preResult * 1.6
+          :
+            result = preResult * 1.7          
+          }
+          if(grado_actividad === EGradoActividad.INTENSA){
+            genero === EGenero.FEMENINO ? 
+            result = preResult * 1.9
+          :
+            result = preResult * 2.1          
+          }
+          return result?.toFixed(2)
+        } 
     }
     return undefined
   }

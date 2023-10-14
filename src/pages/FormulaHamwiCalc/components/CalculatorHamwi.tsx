@@ -8,12 +8,12 @@ import { CalculatorLayout } from "../../../components/calculatorLayout/Calculato
 import { getHamwi } from "../../../data/nutritionalFormulas";
 
 
-export interface CalcHamwiProps {}
+interface CalcHamwiProps {}
 
 export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
 
     const schema = z.object({
-        altura: z.number().min(0).max(250), 
+        altura: z.number().min(1).max(250), 
         genero: z.nativeEnum(EGenero)
        })
     
@@ -28,7 +28,7 @@ export const CalculatorHamwi: React.FC<CalcHamwiProps> = () => {
             handleSubmit={handleSubmit}
             reset={reset}
             patienValues={{} as PatienValuesHamwi}
-            unit="Kg"
+            unit="Kcal"
         >
             <CustomInput 
                 label="Altura (cm)"
