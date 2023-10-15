@@ -23,13 +23,6 @@ Here are some common use cases for this app:
 - Determine the ideal body weight of a patient using Hamwi's formula.
 - Calculate the corrected ideal body weight for a patient based on their actual weight and ideal body weight.
 
-## Contribution
-Contributions to this project are welcome! If you'd like to contribute, please follow these guidelines:
-- Fork the repository.
-- Create a new branch for your feature or bug fix.
-- Make your changes and commit them with clear messages.
-- Submit a pull request, describing the changes you've made.
-
 ## Credits
 This project was developed with the valuable input and domain knowledge of Lara Ferreira Lopes, a future professional in the field of nutrition. Her expertise in nutritional formulas and her practical needs as a nutritionist were instrumental in shaping this app.
 
@@ -67,13 +60,6 @@ Aquí tienes algunos casos de uso comunes para esta aplicación:
 - Calcular el IMC de un paciente en función de su altura y peso.
 - Determinar el peso ideal de un paciente utilizando la fórmula de Hamwi.
 - Calcular el peso ideal corregido de un paciente en función de su peso actual y el peso ideal.
-
-## Contribución
-¡Las contribuciones a este proyecto son bienvenidas! Si deseas contribuir, sigue estas pautas:
-- Haz un fork del repositorio.
-- Crea una nueva rama para tu funcionalidad o corrección de errores.
-- Realiza tus cambios y realiza commits con mensajes claros.
-- Envía una solicitud de extracción (pull request) describiendo los cambios que has realizado.
 
 ## Créditos
 Este proyecto fue desarrollado con la valiosa contribución y conocimiento en el área de Lara Ferreira Lopes, una futura profesional en el campo de la nutrición. Su experiencia en fórmulas nutricionales y sus necesidades prácticas como nutricionista fueron fundamentales en la creación de esta aplicación.
